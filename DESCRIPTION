@@ -1,0 +1,19 @@
+Package: preprivalry
+Type: Package
+Title: Preprocessing of Binocular Rivalry Data
+Version: 0.1.0
+Author: Cemre Yilmaz
+Maintainer: Cemre Yilmaz <cemre.yilmaz@uni-graz.at>
+Description: This package includes the functions for preprocessing for
+    binocular rivalry data which are collected in the project of 
+    "Phenomenology of Transitions in the Bincoular Rivalry". These functions 
+    are for the use only with Cemre Yilmaz and no other people.
+License: GPL-3
+Encoding: UTF-8
+LazyData: true
+Suggests: 
+    knitr,
+    rmarkdown
+VignetteBuilder: knitr
+Imports: R.matlab, 
+    dplyr
