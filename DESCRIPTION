@@ -17,3 +17,5 @@ Suggests:
 VignetteBuilder: knitr
 Imports: R.matlab, 
     dplyr
+URL: https://github.com/cemreyilmaz/preprivalry
+BugReports: https://github.com/cemreyilmaz/preprivalry/issues
