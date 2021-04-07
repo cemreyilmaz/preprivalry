@@ -250,15 +250,15 @@ timeDown <- c()
 session  <- c()
 run      <- c()
 keyname  <- c()
-for(i in 1:length(data[[1]])){
-  for(j in 1:length(data[[1]][[i]])){
-    for(k in length(data[[1]][[i]][[j]])){
-      tmp <- data[[1]][[i]][[j]]
+for(i in 1:length(data)){
+  for(j in 1:length(data[[i]])){
+    for(k in length(data[[i]][[j]])){
+      tmp <- data[[i]][[j]][[k]]
       id  <- c(id, tmp$idDown)
       timeUp   <- c(timeUp, tmp$timeUp)
       timeDown <- c(timeDown, tmp$timeDown)
-      run <- c(run,(numeric(length(tmp$timeDown)) + j))
     }
+    run <- c(run,(numeric(length(tmp$timeDown)) + j))
     session  <- c(session, (numeric(length(tmp$timeDown)) + i))
   }
 }
