@@ -230,7 +230,6 @@ reorganize_prepdata <- function(key,trial){
 #' the defined path.
 #'
 #' @param data preprocessed data which is the output of preprocessing functions
-#' @param filename output directory in which the csv file saved
 #' @param percept_keys key codes and names which are instructed in the experiment
 #' @param subjID subject id to be used as label in the csv file
 #'
@@ -241,9 +240,9 @@ reorganize_prepdata <- function(key,trial){
 #'
 #' @examples
 #' \dontrun{
-#' reorganize_as_csv(data,filename,percept_keys,subjectID)
+#' reorganize_as_csv(data,percept_keys,subjectID)
 #' }
-reorganize_as_csv <- function(data,filename,percept_keys,subjID){
+reorganize_as_table <- function(data,percept_keys,subjID){
 id <- c()
 timeUp   <- c()
 timeDown <- c()
@@ -267,6 +266,5 @@ keyname[id == percept_keys[1,1]] <- percept_keys[2,1]
 keyname[id == percept_keys[1,2]] <- percept_keys[2,2]
 keyname[id == 0] <- 'Transition'
 table <- data.frame(subject,session,run,keyname,id,timeDown,timeUp)
-write.csv(table,filename)
 }
 # ---------------------------------------------------------------------------- #
