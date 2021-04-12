@@ -249,6 +249,7 @@ timeUp   <- c()
 timeDown <- c()
 session  <- c()
 run      <- c()
+trial    <- c()
 keyname  <- c()
 for(i in 1:length(data)){
   for(j in 1:length(data[[i]])){
@@ -257,9 +258,10 @@ for(i in 1:length(data)){
       id  <- c(id, tmp$idDown)
       timeUp   <- c(timeUp, tmp$timeUp)
       timeDown <- c(timeDown, tmp$timeDown)
+      trial <- c(trial,(numeric(length(tmp$timeDown)) + j))
+      run <- c(run,(numeric(length(tmp$timeDown)) + j))
+      session  <- c(session, (numeric(length(tmp$timeDown)) + i))
     }
-    run <- c(run,(numeric(length(tmp$timeDown)) + j))
-    session  <- c(session, (numeric(length(tmp$timeDown)) + i))
   }
 }
 subject <- rep(subjID,length(timeDown))
