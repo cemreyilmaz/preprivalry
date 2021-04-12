@@ -268,6 +268,7 @@ subject <- rep(subjID,length(timeDown))
 keyname[id == percept_keys[1,1]] <- percept_keys[2,1]
 keyname[id == percept_keys[1,2]] <- percept_keys[2,2]
 keyname[id == 0] <- 'Transition'
-table <- data.frame(subject,session,run,keyname,id,timeDown,timeUp)
+duration <- timeUp - timeDown
+table <- data.frame(subject,session,run,trial,keyname,id,timeDown,timeUp,duration)
 }
 # ---------------------------------------------------------------------------- #
