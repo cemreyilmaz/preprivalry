@@ -5,7 +5,7 @@
 #'
 #' This is a simple function to create the file name of data collected on matlab
 #' by using \link{dir} function. Then, it checks if there is any debugged version
-#' and uses the debugged. It reads the mat file by using \link{R.matlab::readMat}.
+#' and uses the debugged. It reads the mat file by using \link{readMat}.
 #'
 #' @note I use the following file name structure:
 #'     'ExperimentName_SubjectID_SessionNo_ ...'. This function searches for
@@ -24,7 +24,7 @@
 #'
 #' @export
 #'
-#' @example
+#' @examples
 #' \dontrun{
 #' data <- riv_data('~/preprivalry/tests','RivalryGratings','s001','session1')
 #' }
@@ -138,7 +138,7 @@ extract_trialkey <- function(key,trial){
 #'
 #' This function preprocesses the key events in a given trial.
 #'
-#' @param key a dataframe containing the key-events in given trial
+#' @param trial_key a dataframe containing the key-events in given trial
 #' @param trial a dataframe containing trial info
 #' @param percept_keys an array containing the keycodes for each percept
 #'
@@ -183,6 +183,7 @@ preprocessing_trial <- function(trial_key,trial,percept_keys){
 #'     as a new field in key list or as a new variable.
 #'
 #' @param key a data frame containing the preprocessed key-events in a trial
+#' @param trial a dataframe containing trial info
 #'
 #' @return data a data frame containing the onset and duration of each transition
 #'     period with a label of key-code 0

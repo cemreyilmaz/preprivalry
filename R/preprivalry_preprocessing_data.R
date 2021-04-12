@@ -95,12 +95,12 @@ preprocessing_session <- function(directory,expList,participant,session_no){
 #' @param expType the experiment name as characters
 #' @param participant the subject id e.g. 's001' or simply the number of subject
 #' @param session the session number as numeric or in the format of 'session1'
-#'
+#' @param which_output to define you want a table-version of output (2) or a data-type output(1)
 #' @return a list containing the preprocessed data of given experimental block
 #' @export
 #'
 #' @examples
-#' {dontrun{
+#' \dontrun{
 #' preprocessing_run('~/preprivalry/tests','RivalryGrating',1,2)
 #' }}
 preprocessing_run <- function(directory,expType,participant,session,which_output){
