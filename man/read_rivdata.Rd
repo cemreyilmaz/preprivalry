@@ -4,32 +4,41 @@
 \alias{read_rivdata}
 \title{Creating file name and reading it}
 \usage{
-read_rivdata(d, e, p, s)
+read_rivdata(directory, expType, participant, session)
 }
 \arguments{
-\item{d}{the directory in which the data are stored}
+\item{directory}{character -- the directory in which the data are stored}
 
-\item{e}{the experiment name of the current run}
+\item{expType}{character -- the experiment name of the current run}
 
-\item{p}{the participant id in the format of 's001'}
+\item{participant}{character or numeric -- the subject id e.g. 's001' or simply
+the number of subject}
 
-\item{s}{the session number in the format of 'session1'}
+\item{session}{character or numeric -- the session number as numeric or in
+the format of 'session1'}
 }
 \value{
-data a list -- all the information about the current run and
-    the key-press data collected in this run
+list -- all the information about the current run and the key-event
+    data collected in this run
 }
 \description{
-This is a simple function to create the file name of data collected on matlab
-by using \link{dir} function. Then, it checks if there is any debugged version
-and uses the debugged. It reads the mat file by using \link{readMat}.
+This is a simple function to create the file name of data collected on matlab.
+Then, it checks if there is any debugged version and uses the debugged. It
+reads the mat file by using \link{readMat}.
 }
 \note{
 I use the following file name structure:
-    'ExperimentName_SubjectID_SessionNo_ ...'. This function searches for
+    'ExperimentName_SubjectID_SessionNo ...'. This function searches for
     such a file name.
 
 It returns into a warning message if the file cannot be read for any reason.
+
+If the data file is stored in the current directory, you don't need to specify
+    the path. Then, use d <- '' or don't define d.
+
+If the participant and/or session_no is given as a numeric variable,
+    the function adds to the beginning of participant code a letter 's' and
+    changes the variable into character.
 }
 \examples{
 \dontrun{

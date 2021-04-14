@@ -7,10 +7,10 @@
 extract_key(rivdata)
 }
 \arguments{
-\item{rivdata}{a list -- the binocular rivalry data}
+\item{rivdata}{list -- the raw data}
 }
 \value{
-key a dataframe -- the data related to the key-events
+data.frame -- the data of only the key-events
 }
 \description{
 This function rearranges the binocular rivalry data which is the output of

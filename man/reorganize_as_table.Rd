@@ -4,24 +4,20 @@
 \alias{reorganize_as_table}
 \title{Saving the preprocessed data as csv}
 \usage{
-reorganize_as_table(data, percept_keys, subjID)
+reorganize_as_table(data)
 }
 \arguments{
-\item{data}{preprocessed data which is the output of preprocessing functions}
-
-\item{percept_keys}{key codes and names which are instructed in the experiment}
-
-\item{subjID}{subject id to be used as label in the csv file}
+\item{data}{list -- preprocessed data which is the output of preprocessing functions}
 }
 \value{
-nothing
+data.frame -- preprocessed data reorganized as table
 }
 \description{
-This function reorganizes the preprocessed data and saves it as csv file in
-the defined path.
+This function reorganizes the preprocessed data and saves it as table structure.
+You can save the output as a csv file.
 }
 \examples{
 \dontrun{
-reorganize_as_csv(data,percept_keys,subjectID)
+reorganize_as_table(data,percept_keys,subjectID)
 }
 }

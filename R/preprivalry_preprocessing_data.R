@@ -5,37 +5,47 @@
 #' Preprocessing the subject data
 #'
 #' This function performs the preprocessing for each run of the given number of
-#' session for the given subject. It uses \link{preprocessing_session} function
+#' session for a subject. It uses \link{preprocessing_session} function
 #' for each session.
 #'
 #' @note If the participant is given as a numeric variable, the function adds to
 #'     the beginning of participant code a letter 's' and changes the variable
 #'     into character.
-#' @param directory the directory that contains all the data
-#' @param expList a list containing all the possible experiment name as characters
-#' @param participant the subject id e.g. 's001' or simply the number of subject
-#' @param sessions the number of sessions to be preprocessed in total
+#' @param directory character -- the directory that contains all the data
+#' @param expList list -- contains all the possible experiment name as characters
+#' @param participant character or numeric - the subject id e.g. 's001' or simply
+#'     the number of subject
+#' @param sessions numeric -- the number of sessions to be preprocessed in total
+#' @param which_output numeric -- to define you the type of output
+#'     a data-type output(1) or a table-version of output (2)
 #'
-#' @return data a list containing the preprocessed data of every sessions
+#' @return list -- contains the preprocessed data of every sessions
 #' @export
 #'
 #' @examples
 #' \dontrun{
 #' preprocessing_subject('~/preprivalry/tests',c('RivalryGrating','RivalryImages'),1,2)
 #' }
-preprocessing_subject <- function(directory,expList,participant,sessions){
+preprocessing_subject <- function(directory,expList,participant,sessions,which_output){
   data <- list()
+  if(missing(which_output)){
+    which_output <- 2
+  }
+  if(is.numeric(participant)){
+    participant <- paste('s',sprintf('%03d', participant),sep = '')
+  }
   for(session_no in 1:sessions){
-    if(is.numeric(participant)){
-      participant <- paste('s',sprintf('%03d', participant),sep = '')
-    }
-    session_data <- preprocessing_session(directory,expList,participant,session_no)
+    session_data <- preprocessing_session(directory,expList,participant,session_no,which_output)
     data[[session_no]] <- session_data
   }
+  rivdata <- read_rivdata(directory,expList[1],participant,'session1')
+  data[['percept_keys']] <- rbind(rivdata[["log"]][[4]][[1]],
+                                  c(rivdata[["log"]][[4]][[2]][[1]][[1]],rivdata[["log"]][[4]][[2]][[2]][[1]]))
+  data[['subject']] <- participant
   return(data)
 }
 # ---------------------------------------------------------------------------- #
-#' Preprocessing the session data of given subject
+#' Preprocessing the session data of a subject
 #'
 #' This function performs a preprocessing workflow for each run of the given
 #' session for the given subject. It uses \link{preprocessing_run} function for
@@ -45,45 +55,53 @@ preprocessing_subject <- function(directory,expList,participant,sessions){
 #'     the function adds to the beginning of participant code a letter 's' and
 #'     changes the variable into character.
 #'
-#' @param directory the directory that contains all the data
-#' @param expList a list containing all the possible experiment name as characters
-#' @param participant the subject id e.g. 's001' or simply the number of subject
-#' @param session_no the session number as numeric or in the format of 'session1'
+#' @param directory character -- the directory that contains all the data
+#' @param expList list -- contains all the possible experiment name as characters
+#' @param participant character or numeric -- the subject id e.g. 's001' or simply
+#'     the number of subject
+#' @param session_no character or numeric -- the session number as numeric or in
+#'     the format of 'session1'
+#' @param which_output numeric -- to define you the type of output
+#'     a data-type output(1) or a table-version of output (2)
 #'
-#' @return data a list containing the preprocessed data of every runs
+#' @return list -- contains the preprocessed data of every runs
 #' @export
 #'
 #' @examples
 #' \dontrun{
 #' preprocessing_session('~/preprivalry/tests',c('RivalryGrating','RivalryImages'),1,2)
 #' }
-preprocessing_session <- function(directory,expList,participant,session_no){
+preprocessing_session <- function(directory,expList,participant,session_no,which_output){
   if(is.numeric(participant)){
     participant <- paste('s',sprintf('%03d', participant),sep = '')
   }
   if(is.numeric(session_no)){
     session <- paste('session', session_no, sep = '')
   }
+  if(missing(which_output)){
+    which_output <- 2
+  }
   data <- list()
   for(expNo in 1:length(expList)){
     expType  <- expList[expNo]
-    run_data <- preprocessing_run(directory,expType,participant,session,2)
+    run_data <- preprocessing_run(directory,expType,participant,session,which_output)
     data[[expNo]] <- run_data
   }
   return(data)
 }
 # ---------------------------------------------------------------------------- #
-#' Preprocessing the run data of given session of given subject
+#' Preprocessing the run data of a session of a subject
 #'
 #' This function performs the preprocessing for the given run of the given
-#' session for the given subject. First, it uses \link{read_rivdata} function to
-#' read the data. Then, it extracts experiment info and key events by using
-#' \link{extract_exp} and \link{extract_key}. Then, it extracts and cleans
-#' the data for separate trials in a run by using \link{extract_trialkey} and
-#' \link{clean_keyevents}. The preprocessing of the trial data is performed by
-#' \link{preprocessing_trial}. Then, a series of key events is created for
-#' transition phases with \link{create_transitionkey}. The function
-#' \link{reorganize_prepdata} creates the output ready to be analyzed.
+#' session for the given subject. First, it reads the data. Then, it extracts
+#' experiment info and key events. Then, it extracts and cleans the data for
+#' separate trials in a run. The preprocessing of the trial data is performed,
+#' and a series of key events is created for transition phases. The output
+#' is ready to be analyzed.
+#' See also:
+#' \link{read_rivdata} \link{extract_exp} \link{extract_key}
+#' \link{extract_trialkey} \link{clean_keyevents} \link{preprocessing_trial}
+#' \link{create_transitionkey} \link{reorganize_prepdata}
 #'
 #' @note If the participant and/or session_no is given as a numeric variable,
 #'     the function adds to the beginning of participant code a letter 's' and
@@ -91,12 +109,16 @@ preprocessing_session <- function(directory,expList,participant,session_no){
 #'
 #' @import dplyr
 #'
-#' @param directory the directory that contains all the data
-#' @param expType the experiment name as characters
-#' @param participant the subject id e.g. 's001' or simply the number of subject
-#' @param session the session number as numeric or in the format of 'session1'
-#' @param which_output to define you want a table-version of output (2) or a data-type output(1)
-#' @return a list containing the preprocessed data of given experimental block
+#' @param directory character -- the directory that contains all the data
+#' @param expType character -- the experiment name
+#' @param participant character or numeric -- the subject id e.g. 's001' or simply
+#'     the number of subject
+#' @param session character or numeric -- the session number as numeric or in
+#'     the format of 'session1'
+#' @param which_output numeric -- to define you the type of output
+#'     a data-type output(1) or a table-version of output (2)
+#'
+#' @return list -- contains the preprocessed data of given experimental block
 #' @export
 #'
 #' @examples

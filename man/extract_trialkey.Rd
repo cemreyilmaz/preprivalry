@@ -7,17 +7,17 @@
 extract_trialkey(key, trial)
 }
 \arguments{
-\item{key}{a dataframe -- the data related to the key-events}
+\item{key}{data.frame -- the data related to the key-events}
 
-\item{trial}{trial start and end time}
+\item{trial}{matrix -- trial start and end time}
 }
 \value{
-key a dataframe -- the data related to the key-events in the given trial
+data.frame -- the data related to the key-events in the given trial
 }
 \description{
 This function extracts the key events from the given trial. It uses the time
 information to define whether or not the key event belongs to the given trial.
-The input data is the output of \link{extract_key} function.
+See also \link{extract_key}
 }
 \note{
 The function changes the class of "trial" if it is not numeric.

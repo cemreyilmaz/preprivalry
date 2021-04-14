@@ -7,18 +7,18 @@
 preprocessing_trial(trial_key, trial, percept_keys)
 }
 \arguments{
-\item{trial_key}{a dataframe containing the key-events in given trial}
+\item{trial_key}{data.frame -- contains the key-events in given trial}
 
-\item{trial}{a dataframe containing trial info}
+\item{trial}{data.frame -- contains trial info}
 
-\item{percept_keys}{an array containing the keycodes for each percept}
+\item{percept_keys}{matrix -- contains the keycodes for each percept}
 }
 \value{
-trial_data a list containing the onset and duration info for
-    each percept by keycode
+list -- contains the onset and duration info for each percept by keycode
 }
 \description{
 This function preprocesses the key events in a given trial.
+See also \link{extract_trialkey}
 }
 \examples{
 \dontrun{

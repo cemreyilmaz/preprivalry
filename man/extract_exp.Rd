@@ -2,15 +2,15 @@
 % Please edit documentation in R/preprivalry_organizing_data.R
 \name{extract_exp}
 \alias{extract_exp}
-\title{Extracting the details of experimental run}
+\title{Extracting the details of an experimental run}
 \usage{
 extract_exp(rivdata)
 }
 \arguments{
-\item{rivdata}{a list -- the binocular rivalry data}
+\item{rivdata}{list -- the raw data}
 }
 \value{
-exp a data frame -- the start and end time of trials
+data.frame -- the start and end time of trials
 }
 \description{
 This function rearranges the binocular rivalry data which is the output of

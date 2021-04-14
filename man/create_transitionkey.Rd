@@ -7,12 +7,12 @@
 create_transitionkey(key, trial)
 }
 \arguments{
-\item{key}{a data frame containing the preprocessed key-events in a trial}
+\item{key}{data.frame -- contains the preprocessed key-events in a trial}
 
-\item{trial}{a dataframe containing trial info}
+\item{trial}{matrix -- contains trial info}
 }
 \value{
-data a data frame containing the onset and duration of each transition
+data.frame -- contains the onset and duration of each transition
     period with a label of key-code 0
 }
 \description{

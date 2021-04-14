@@ -2,34 +2,38 @@
 % Please edit documentation in R/preprivalry_preprocessing_data.R
 \name{preprocessing_run}
 \alias{preprocessing_run}
-\title{Preprocessing the run data of given session of given subject}
+\title{Preprocessing the run data of a session of a subject}
 \usage{
 preprocessing_run(directory, expType, participant, session, which_output)
 }
 \arguments{
-\item{directory}{the directory that contains all the data}
+\item{directory}{character -- the directory that contains all the data}
 
-\item{expType}{the experiment name as characters}
+\item{expType}{character -- the experiment name}
 
-\item{participant}{the subject id e.g. 's001' or simply the number of subject}
+\item{participant}{character or numeric -- the subject id e.g. 's001' or simply
+the number of subject}
 
-\item{session}{the session number as numeric or in the format of 'session1'}
+\item{session}{character or numeric -- the session number as numeric or in
+the format of 'session1'}
 
-\item{which_output}{to define you want a table-version of output (2) or a data-type output(1)}
+\item{which_output}{numeric -- to define you the type of output
+a data-type output(1) or a table-version of output (2)}
 }
 \value{
-a list containing the preprocessed data of given experimental block
+list -- contains the preprocessed data of given experimental block
 }
 \description{
 This function performs the preprocessing for the given run of the given
-session for the given subject. First, it uses \link{read_rivdata} function to
-read the data. Then, it extracts experiment info and key events by using
-\link{extract_exp} and \link{extract_key}. Then, it extracts and cleans
-the data for separate trials in a run by using \link{extract_trialkey} and
-\link{clean_keyevents}. The preprocessing of the trial data is performed by
-\link{preprocessing_trial}. Then, a series of key events is created for
-transition phases with \link{create_transitionkey}. The function
-\link{reorganize_prepdata} creates the output ready to be analyzed.
+session for the given subject. First, it reads the data. Then, it extracts
+experiment info and key events. Then, it extracts and cleans the data for
+separate trials in a run. The preprocessing of the trial data is performed,
+and a series of key events is created for transition phases. The output
+is ready to be analyzed.
+See also:
+\link{read_rivdata} \link{extract_exp} \link{extract_key}
+\link{extract_trialkey} \link{clean_keyevents} \link{preprocessing_trial}
+\link{create_transitionkey} \link{reorganize_prepdata}
 }
 \note{
 If the participant and/or session_no is given as a numeric variable,

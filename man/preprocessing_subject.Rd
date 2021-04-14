@@ -4,23 +4,27 @@
 \alias{preprocessing_subject}
 \title{Preprocessing the subject data}
 \usage{
-preprocessing_subject(directory, expList, participant, sessions)
+preprocessing_subject(directory, expList, participant, sessions, which_output)
 }
 \arguments{
-\item{directory}{the directory that contains all the data}
+\item{directory}{character -- the directory that contains all the data}
 
-\item{expList}{a list containing all the possible experiment name as characters}
+\item{expList}{list -- contains all the possible experiment name as characters}
 
-\item{participant}{the subject id e.g. 's001' or simply the number of subject}
+\item{participant}{character or numeric - the subject id e.g. 's001' or simply
+the number of subject}
 
-\item{sessions}{the number of sessions to be preprocessed in total}
+\item{sessions}{numeric -- the number of sessions to be preprocessed in total}
+
+\item{which_output}{numeric -- to define you the type of output
+a data-type output(1) or a table-version of output (2)}
 }
 \value{
-data a list containing the preprocessed data of every sessions
+list -- contains the preprocessed data of every sessions
 }
 \description{
 This function performs the preprocessing for each run of the given number of
-session for the given subject. It uses \link{preprocessing_session} function
+session for a subject. It uses \link{preprocessing_session} function
 for each session.
 }
 \note{

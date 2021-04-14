@@ -2,21 +2,32 @@
 % Please edit documentation in R/preprivalry_preprocessing_data.R
 \name{preprocessing_session}
 \alias{preprocessing_session}
-\title{Preprocessing the session data of given subject}
+\title{Preprocessing the session data of a subject}
 \usage{
-preprocessing_session(directory, expList, participant, session_no)
+preprocessing_session(
+  directory,
+  expList,
+  participant,
+  session_no,
+  which_output
+)
 }
 \arguments{
-\item{directory}{the directory that contains all the data}
+\item{directory}{character -- the directory that contains all the data}
 
-\item{expList}{a list containing all the possible experiment name as characters}
+\item{expList}{list -- contains all the possible experiment name as characters}
 
-\item{participant}{the subject id e.g. 's001' or simply the number of subject}
+\item{participant}{character or numeric -- the subject id e.g. 's001' or simply
+the number of subject}
 
-\item{session_no}{the session number as numeric or in the format of 'session1'}
+\item{session_no}{character or numeric -- the session number as numeric or in
+the format of 'session1'}
+
+\item{which_output}{numeric -- to define you the type of output
+a data-type output(1) or a table-version of output (2)}
 }
 \value{
-data a list containing the preprocessed data of every runs
+list -- contains the preprocessed data of every runs
 }
 \description{
 This function performs a preprocessing workflow for each run of the given

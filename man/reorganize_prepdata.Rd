@@ -7,13 +7,13 @@
 reorganize_prepdata(key, trial)
 }
 \arguments{
-\item{key}{a data frame containing the preprocessed key-events of dominant
+\item{key}{data.frame -- contains the preprocessed key-events of dominant
 percepts in a trial}
 
-\item{trial}{a data frame containing trial info}
+\item{trial}{matrix -- contains trial info}
 }
 \value{
-key a data frame containing the preprocessed key-events of dominant
+data.frame -- contains the preprocessed key-events of dominant
     percepts and transition phases in a trial
 }
 \description{

@@ -3,24 +3,31 @@
 # ---------------------------------------------------------------------------- #
 #' Creating file name and reading it
 #'
-#' This is a simple function to create the file name of data collected on matlab
-#' by using \link{dir} function. Then, it checks if there is any debugged version
-#' and uses the debugged. It reads the mat file by using \link{readMat}.
+#' This is a simple function to create the file name of data collected on matlab.
+#' Then, it checks if there is any debugged version and uses the debugged. It
+#' reads the mat file by using \link{readMat}.
 #'
 #' @note I use the following file name structure:
-#'     'ExperimentName_SubjectID_SessionNo_ ...'. This function searches for
+#'     'ExperimentName_SubjectID_SessionNo ...'. This function searches for
 #'     such a file name.
 #' @note It returns into a warning message if the file cannot be read for any reason.
+#' @note If the data file is stored in the current directory, you don't need to specify
+#'     the path. Then, use d <- '' or don't define d.
+#' @note If the participant and/or session_no is given as a numeric variable,
+#'     the function adds to the beginning of participant code a letter 's' and
+#'     changes the variable into character.
 #'
 #' @import R.matlab
 #'
-#' @param d the directory in which the data are stored
-#' @param e the experiment name of the current run
-#' @param p the participant id in the format of 's001'
-#' @param s the session number in the format of 'session1'
+#' @param directory character -- the directory in which the data are stored
+#' @param expType character -- the experiment name of the current run
+#' @param participant character or numeric -- the subject id e.g. 's001' or simply
+#'     the number of subject
+#' @param session character or numeric -- the session number as numeric or in
+#'     the format of 'session1'
 #'
-#' @return data a list -- all the information about the current run and
-#'     the key-press data collected in this run
+#' @return list -- all the information about the current run and the key-event
+#'     data collected in this run
 #'
 #' @export
 #'
@@ -28,8 +35,17 @@
 #' \dontrun{
 #' data <- riv_data('~/preprivalry/tests','RivalryGratings','s001','session1')
 #' }
-read_rivdata <- function(d,e,p,s){
-  fullPath   <- dir(d, full.names=T, pattern=paste(e, '_', p, '_', s, sep = ''))
+read_rivdata <- function(directory,expType,participant,session){
+  if(directory=='' | missing(directory)){
+    directory <- getwd()
+  }
+  if(is.numeric(participant)){
+    participant <- paste('s',sprintf('%03d', participant),sep = '')
+  }
+  if(is.numeric(session)){
+    session <- paste('session', session, sep = '')
+  }
+  fullPath   <- dir(directory, full.names=T, pattern=paste(expType, '_', participant, '_', session, sep = ''))
   if(length(fullPath)>1){
     fullPath <- fullPath[substr(fullPath,nchar(fullPath)-11,nchar(fullPath)) == 'debugged.mat']
   }
@@ -47,9 +63,9 @@ read_rivdata <- function(d,e,p,s){
 #' \link{read_rivdata}, and creates a data frame including the key name, key code
 #' and time for key-presses and key-releases.
 #'
-#' @param rivdata a list -- the binocular rivalry data
+#' @param rivdata list -- the raw data
 #'
-#' @return key a dataframe -- the data related to the key-events
+#' @return data.frame -- the data of only the key-events
 #'
 #' @export
 #'
@@ -82,15 +98,15 @@ extract_key <- function(rivdata){
   key <- data.frame(nameUp,idUp,timeUp,nameDown,idDown,timeDown)
 }
 # ---------------------------------------------------------------------------- #
-#' Extracting the details of experimental run
+#' Extracting the details of an experimental run
 #'
 #' This function rearranges the binocular rivalry data which is the output of
 #' \link{read_rivdata}, and creates a data frame including the start and end time
 #' of trials.
 #'
-#' @param rivdata a list -- the binocular rivalry data
+#' @param rivdata list -- the raw data
 #'
-#' @return exp a data frame -- the start and end time of trials
+#' @return data.frame -- the start and end time of trials
 #'
 #' @export
 #'
@@ -108,13 +124,13 @@ extract_exp <- function(rivdata){
 #'
 #' This function extracts the key events from the given trial. It uses the time
 #' information to define whether or not the key event belongs to the given trial.
-#' The input data is the output of \link{extract_key} function.
+#' See also \link{extract_key}
 #'
 #' @note The function changes the class of "trial" if it is not numeric.
-#' @param key a dataframe -- the data related to the key-events
-#' @param trial trial start and end time
+#' @param key data.frame -- the data related to the key-events
+#' @param trial matrix -- trial start and end time
 #'
-#' @return key a dataframe -- the data related to the key-events in the given trial
+#' @return data.frame -- the data related to the key-events in the given trial
 #' @export
 #'
 #' @examples
@@ -137,15 +153,15 @@ extract_trialkey <- function(key,trial){
 #' Preprocessing of key events in a trial
 #'
 #' This function preprocesses the key events in a given trial.
+#' See also \link{extract_trialkey}
 #'
-#' @param trial_key a dataframe containing the key-events in given trial
-#' @param trial a dataframe containing trial info
-#' @param percept_keys an array containing the keycodes for each percept
+#' @param trial_key data.frame -- contains the key-events in given trial
+#' @param trial data.frame -- contains trial info
+#' @param percept_keys matrix -- contains the keycodes for each percept
 #'
 #' @import dplyr
 #'
-#' @return trial_data a list containing the onset and duration info for
-#'     each percept by keycode
+#' @return list -- contains the onset and duration info for each percept by keycode
 #' @export
 #'
 #' @examples
@@ -182,10 +198,10 @@ preprocessing_trial <- function(trial_key,trial,percept_keys){
 #' @note The output is only the key events for transition. It must be defined
 #'     as a new field in key list or as a new variable.
 #'
-#' @param key a data frame containing the preprocessed key-events in a trial
-#' @param trial a dataframe containing trial info
+#' @param key data.frame -- contains the preprocessed key-events in a trial
+#' @param trial matrix -- contains trial info
 #'
-#' @return data a data frame containing the onset and duration of each transition
+#' @return data.frame -- contains the onset and duration of each transition
 #'     period with a label of key-code 0
 #'
 #' @export
@@ -205,11 +221,11 @@ data <- data.frame(key   = 0,
 #' This function merges and sorts the key-events in a trial. The output is ready
 #' to be analyzed.
 #'
-#' @param key a data frame containing the preprocessed key-events of dominant
+#' @param key data.frame -- contains the preprocessed key-events of dominant
 #'     percepts in a trial
-#' @param trial a data frame containing trial info
+#' @param trial matrix -- contains trial info
 #'
-#' @return key a data frame containing the preprocessed key-events of dominant
+#' @return data.frame -- contains the preprocessed key-events of dominant
 #'     percepts and transition phases in a trial
 #' @export
 #'
@@ -227,48 +243,61 @@ reorganize_prepdata <- function(key,trial){
 # ---------------------------------------------------------------------------- #
 #' Saving the preprocessed data as csv
 #'
-#' This function reorganizes the preprocessed data and saves it as csv file in
-#' the defined path.
+#' This function reorganizes the preprocessed data and saves it as table structure.
+#' You can save the output as a csv file.
 #'
-#' @param data preprocessed data which is the output of preprocessing functions
-#' @param percept_keys key codes and names which are instructed in the experiment
-#' @param subjID subject id to be used as label in the csv file
+#' @param data list -- preprocessed data which is the output of preprocessing functions
 #'
 #' @importFrom utils write.csv
 #'
-#' @return nothing
+#' @return data.frame -- preprocessed data reorganized as table
 #' @export
 #'
 #' @examples
 #' \dontrun{
-#' reorganize_as_csv(data,percept_keys,subjectID)
+#' reorganize_as_table(data,percept_keys,subjectID)
 #' }
-reorganize_as_table <- function(data,percept_keys,subjID){
-id <- c()
-timeUp   <- c()
-timeDown <- c()
-session  <- c()
-run      <- c()
-trial    <- c()
-keyname  <- c()
-for(i in 1:length(data)){
-  for(j in 1:length(data[[i]])){
-    for(k in length(data[[i]][[j]])){
-      tmp <- data[[i]][[j]][[k]]
-      id  <- c(id, tmp$idDown)
-      timeUp   <- c(timeUp, tmp$timeUp)
-      timeDown <- c(timeDown, tmp$timeDown)
-      trial <- c(trial,(numeric(length(tmp$timeDown)) + k))
-      run <- c(run,(numeric(length(tmp$timeDown)) + j))
-      session  <- c(session, (numeric(length(tmp$timeDown)) + i))
+reorganize_as_table <- function(data){
+  percept_keys <- data[['percept_keys']]
+  subjID <- data[['subject']]
+  data <- data[1:(length(data)-2)]
+  id <- c()
+  timeUp   <- c()
+  timeDown <- c()
+  session  <- c()
+  run      <- c()
+  trial    <- c()
+  keyname  <- c()
+  for(i in 1:length(data)){
+    for(j in 1:length(data[[i]])){
+      for(k in 1:length(data[[i]][[j]])){
+        tmp <- data[[i]][[j]][[k]]
+        if(is.null(dim(tmp))){
+          for(l in 1:length(tmp)){
+            curr_tmp <- tmp[[l]]
+            id  <- c(id, curr_tmp$key)
+            timeDown <- c(timeDown, curr_tmp$onset)
+            timeUp <- c(timeUp, curr_tmp$onset + curr_tmp$duration)
+            trial <- c(trial,(numeric(length(curr_tmp$duration)) + k))
+            run <- c(run,(numeric(length(curr_tmp$duration)) + j))
+            session  <- c(session, (numeric(length(curr_tmp$duration)) + i))
+          }
+        } else{
+          id  <- c(id, tmp$idDown)
+          timeUp   <- c(timeUp, tmp$timeUp)
+          timeDown <- c(timeDown, tmp$timeDown)
+          trial <- c(trial,(numeric(length(tmp$timeDown)) + k))
+          run <- c(run,(numeric(length(tmp$timeDown)) + j))
+          session  <- c(session, (numeric(length(tmp$timeDown)) + i))
+        }
+      }
     }
   }
-}
-subject <- rep(subjID,length(timeDown))
-keyname[id == percept_keys[1,1]] <- percept_keys[2,1]
-keyname[id == percept_keys[1,2]] <- percept_keys[2,2]
-keyname[id == 0] <- 'Transition'
-duration <- timeUp - timeDown
-table <- data.frame(subject,session,run,trial,keyname,id,timeDown,timeUp,duration)
+  subject <- rep(subjID,length(timeDown))
+  keyname[id == percept_keys[1,1]] <- percept_keys[2,1]
+  keyname[id == percept_keys[1,2]] <- percept_keys[2,2]
+  keyname[id == 0] <- 'Transition'
+  duration <- timeUp - timeDown
+  table <- data.frame(subject,session,run,trial,keyname,id,timeDown,timeUp,duration)
 }
 # ---------------------------------------------------------------------------- #
