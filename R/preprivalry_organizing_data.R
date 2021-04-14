@@ -268,19 +268,26 @@ reorganize_as_table <- function(data){
   run      <- c()
   trial    <- c()
   keyname  <- c()
-  for(i in 1:length(data)){
-    for(j in 1:length(data[[i]])){
-      for(k in 1:length(data[[i]][[j]])){
+  for(i in 1:length(data)){# each session
+    for(j in 1:length(data[[i]])){# each run
+      for(k in 1:length(data[[i]][[j]])){# each trial
         tmp <- data[[i]][[j]][[k]]
-        for(l in 1:length(tmp)){
+        tmp_id <- c()
+        tmp_timeDown <- c()
+        tmp_timeUp <- c()
+        for(l in 1:length(tmp)){# each percept key
           curr_tmp <- tmp[[l]]
-          id  <- c(id, curr_tmp$key)
-          timeDown <- c(timeDown, curr_tmp$onset)
-          timeUp <- c(timeUp, curr_tmp$onset + curr_tmp$duration)
-          trial <- c(trial,(numeric(length(curr_tmp$duration)) + k))
-          run <- c(run,(numeric(length(curr_tmp$duration)) + j))
-          session  <- c(session, (numeric(length(curr_tmp$duration)) + i))
+          tmp_id  <- c(tmp_id, curr_tmp$key)
+          tmp_timeDown <- c(tmp_timeDown, curr_tmp$onset)
+          tmp_timeUp <- c(tmp_timeUp, curr_tmp$onset + curr_tmp$duration)
         }
+        index_order <- order(tmp_timeDown)
+        id <- c(id, tmp_id[index_order])
+        timeUp <- c(timeUp, tmp_timeUp[index_order])
+        timeDown <- c(timeDown, tmp_timeDown[index_order])
+        trial <- c(trial,(numeric(length(tmp_timeUp)) + k))
+        run <- c(run,(numeric(length(tmp_timeUp)) + j))
+        session  <- c(session, (numeric(length(tmp_timeUp)) + i))
       }
     }
   }
