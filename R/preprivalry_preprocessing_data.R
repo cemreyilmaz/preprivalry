@@ -16,8 +16,6 @@
 #' @param participant character or numeric - the subject id e.g. 's001' or simply
 #'     the number of subject
 #' @param sessions numeric -- the number of sessions to be preprocessed in total
-#' @param which_output numeric -- to define you the type of output
-#'     a data-type output(1) or a table-version of output (2)
 #'
 #' @return list -- contains the preprocessed data of every sessions
 #' @export
@@ -26,16 +24,13 @@
 #' \dontrun{
 #' preprocessing_subject('~/preprivalry/tests',c('RivalryGrating','RivalryImages'),1,2)
 #' }
-preprocessing_subject <- function(directory,expList,participant,sessions,which_output){
+preprocessing_subject <- function(directory,expList,participant,sessions){
   data <- list()
-  if(missing(which_output)){
-    which_output <- 2
-  }
   if(is.numeric(participant)){
     participant <- paste('s',sprintf('%03d', participant),sep = '')
   }
   for(session_no in 1:sessions){
-    session_data <- preprocessing_session(directory,expList,participant,session_no,which_output)
+    session_data <- preprocessing_session(directory,expList,participant,session_no)
     data[[session_no]] <- session_data
   }
   rivdata <- read_rivdata(directory,expList[1],participant,'session1')
@@ -61,8 +56,6 @@ preprocessing_subject <- function(directory,expList,participant,sessions,which_o
 #'     the number of subject
 #' @param session_no character or numeric -- the session number as numeric or in
 #'     the format of 'session1'
-#' @param which_output numeric -- to define you the type of output
-#'     a data-type output(1) or a table-version of output (2)
 #'
 #' @return list -- contains the preprocessed data of every runs
 #' @export
@@ -71,20 +64,17 @@ preprocessing_subject <- function(directory,expList,participant,sessions,which_o
 #' \dontrun{
 #' preprocessing_session('~/preprivalry/tests',c('RivalryGrating','RivalryImages'),1,2)
 #' }
-preprocessing_session <- function(directory,expList,participant,session_no,which_output){
+preprocessing_session <- function(directory,expList,participant,session_no){
   if(is.numeric(participant)){
     participant <- paste('s',sprintf('%03d', participant),sep = '')
   }
   if(is.numeric(session_no)){
     session <- paste('session', session_no, sep = '')
   }
-  if(missing(which_output)){
-    which_output <- 2
-  }
   data <- list()
   for(expNo in 1:length(expList)){
     expType  <- expList[expNo]
-    run_data <- preprocessing_run(directory,expType,participant,session,which_output)
+    run_data <- preprocessing_run(directory,expType,participant,session)
     data[[expNo]] <- run_data
   }
   return(data)
@@ -101,7 +91,7 @@ preprocessing_session <- function(directory,expList,participant,session_no,which
 #' See also:
 #' \link{read_rivdata} \link{extract_exp} \link{extract_key}
 #' \link{extract_trialkey} \link{clean_keyevents} \link{preprocessing_trial}
-#' \link{create_transitionkey} \link{reorganize_prepdata}
+#' \link{create_transitionkey} \link{reorganize_preptrial}
 #'
 #' @note If the participant and/or session_no is given as a numeric variable,
 #'     the function adds to the beginning of participant code a letter 's' and
@@ -115,8 +105,6 @@ preprocessing_session <- function(directory,expList,participant,session_no,which
 #'     the number of subject
 #' @param session character or numeric -- the session number as numeric or in
 #'     the format of 'session1'
-#' @param which_output numeric -- to define you the type of output
-#'     a data-type output(1) or a table-version of output (2)
 #'
 #' @return list -- contains the preprocessed data of given experimental block
 #' @export
@@ -124,16 +112,13 @@ preprocessing_session <- function(directory,expList,participant,session_no,which
 #' @examples
 #' \dontrun{
 #' preprocessing_run('~/preprivalry/tests','RivalryGrating',1,2)
-#' }}
-preprocessing_run <- function(directory,expType,participant,session,which_output){
+#' }
+preprocessing_run <- function(directory,expType,participant,session){
   if(is.numeric(participant)){
     participant <- paste('s',sprintf('%03d', participant),sep = '')
   }
   if(is.numeric(session)){
     session <- paste('session', session, sep = '')
-  }
-  if(missing(which_output)){
-    which_output <- 2
   }
   rivdata <- read_rivdata(directory,expType,participant,session)
   exp     <- extract_exp(rivdata)
@@ -148,16 +133,7 @@ preprocessing_run <- function(directory,expType,participant,session,which_output
     d <- preprocessing_trial(trial_key,trial,percept_keys)
     d[[length(d)+1]] <- create_transitionkey(trial_key,trial)
     key_data[[t]]    <- d
-    all_percept[[t]] <- reorganize_prepdata(trial_key,trial)
   }
-  if(which_output==1){
-    # output is key_data
-    return(key_data)
-  } else if(which_output==2){
-    return(all_percept)
-  } else{
-    warning('No output is defined!')
-    return(NULL)
-  }
+  return(key_data)
 }
 # ---------------------------------------------------------------------------- #

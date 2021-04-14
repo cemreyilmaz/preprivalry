@@ -4,7 +4,7 @@
 \alias{preprocessing_subject}
 \title{Preprocessing the subject data}
 \usage{
-preprocessing_subject(directory, expList, participant, sessions, which_output)
+preprocessing_subject(directory, expList, participant, sessions)
 }
 \arguments{
 \item{directory}{character -- the directory that contains all the data}
@@ -15,9 +15,6 @@ preprocessing_subject(directory, expList, participant, sessions, which_output)
 the number of subject}
 
 \item{sessions}{numeric -- the number of sessions to be preprocessed in total}
-
-\item{which_output}{numeric -- to define you the type of output
-a data-type output(1) or a table-version of output (2)}
 }
 \value{
 list -- contains the preprocessed data of every sessions

@@ -4,7 +4,7 @@
 \alias{preprocessing_run}
 \title{Preprocessing the run data of a session of a subject}
 \usage{
-preprocessing_run(directory, expType, participant, session, which_output)
+preprocessing_run(directory, expType, participant, session)
 }
 \arguments{
 \item{directory}{character -- the directory that contains all the data}
@@ -16,9 +16,6 @@ the number of subject}
 
 \item{session}{character or numeric -- the session number as numeric or in
 the format of 'session1'}
-
-\item{which_output}{numeric -- to define you the type of output
-a data-type output(1) or a table-version of output (2)}
 }
 \value{
 list -- contains the preprocessed data of given experimental block
@@ -33,10 +30,15 @@ is ready to be analyzed.
 See also:
 \link{read_rivdata} \link{extract_exp} \link{extract_key}
 \link{extract_trialkey} \link{clean_keyevents} \link{preprocessing_trial}
-\link{create_transitionkey} \link{reorganize_prepdata}
+\link{create_transitionkey} \link{reorganize_preptrial}
 }
 \note{
 If the participant and/or session_no is given as a numeric variable,
     the function adds to the beginning of participant code a letter 's' and
     changes the variable into character.
+}
+\examples{
+\dontrun{
+preprocessing_run('~/preprivalry/tests','RivalryGrating',1,2)
+}
 }

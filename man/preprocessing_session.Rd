@@ -4,13 +4,7 @@
 \alias{preprocessing_session}
 \title{Preprocessing the session data of a subject}
 \usage{
-preprocessing_session(
-  directory,
-  expList,
-  participant,
-  session_no,
-  which_output
-)
+preprocessing_session(directory, expList, participant, session_no)
 }
 \arguments{
 \item{directory}{character -- the directory that contains all the data}
@@ -22,9 +16,6 @@ the number of subject}
 
 \item{session_no}{character or numeric -- the session number as numeric or in
 the format of 'session1'}
-
-\item{which_output}{numeric -- to define you the type of output
-a data-type output(1) or a table-version of output (2)}
 }
 \value{
 list -- contains the preprocessed data of every runs

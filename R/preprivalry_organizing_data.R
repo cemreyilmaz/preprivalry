@@ -231,9 +231,9 @@ data <- data.frame(key   = 0,
 #'
 #' @examples
 #' \dontrun{
-#' reorganize_prepdata(trial_key,trial)
+#' reorganize_preptrial(trial_key,trial)
 #' }
-reorganize_prepdata <- function(key,trial){
+reorganize_preptrial <- function(key,trial){
   key <- data.frame(
     idDown   = c(key$idDown, numeric(length(key$timeUp)-1)),
     timeDown = c(key$timeDown, key$timeUp[1:(length(key$timeUp)-1)])- as.numeric(unlist(trial[1])),
@@ -272,23 +272,14 @@ reorganize_as_table <- function(data){
     for(j in 1:length(data[[i]])){
       for(k in 1:length(data[[i]][[j]])){
         tmp <- data[[i]][[j]][[k]]
-        if(is.null(dim(tmp))){
-          for(l in 1:length(tmp)){
-            curr_tmp <- tmp[[l]]
-            id  <- c(id, curr_tmp$key)
-            timeDown <- c(timeDown, curr_tmp$onset)
-            timeUp <- c(timeUp, curr_tmp$onset + curr_tmp$duration)
-            trial <- c(trial,(numeric(length(curr_tmp$duration)) + k))
-            run <- c(run,(numeric(length(curr_tmp$duration)) + j))
-            session  <- c(session, (numeric(length(curr_tmp$duration)) + i))
-          }
-        } else{
-          id  <- c(id, tmp$idDown)
-          timeUp   <- c(timeUp, tmp$timeUp)
-          timeDown <- c(timeDown, tmp$timeDown)
-          trial <- c(trial,(numeric(length(tmp$timeDown)) + k))
-          run <- c(run,(numeric(length(tmp$timeDown)) + j))
-          session  <- c(session, (numeric(length(tmp$timeDown)) + i))
+        for(l in 1:length(tmp)){
+          curr_tmp <- tmp[[l]]
+          id  <- c(id, curr_tmp$key)
+          timeDown <- c(timeDown, curr_tmp$onset)
+          timeUp <- c(timeUp, curr_tmp$onset + curr_tmp$duration)
+          trial <- c(trial,(numeric(length(curr_tmp$duration)) + k))
+          run <- c(run,(numeric(length(curr_tmp$duration)) + j))
+          session  <- c(session, (numeric(length(curr_tmp$duration)) + i))
         }
       }
     }
