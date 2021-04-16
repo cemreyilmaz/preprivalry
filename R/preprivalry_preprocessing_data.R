@@ -97,8 +97,6 @@ preprocessing_session <- function(directory,expList,participant,session_no){
 #'     the function adds to the beginning of participant code a letter 's' and
 #'     changes the variable into character.
 #'
-#' @import dplyr
-#'
 #' @param directory character -- the directory that contains all the data
 #' @param expType character -- the experiment name
 #' @param participant character or numeric -- the subject id e.g. 's001' or simply
@@ -125,7 +123,6 @@ preprocessing_run <- function(directory,expType,participant,session){
   exp_key <- extract_key(rivdata)
   percept_keys <- rivdata[["log"]][[4]][[1]]
   key_data     <- list()
-  all_percept  <- list()
   for(t in 1:length(exp)){
     trial      <- exp[t,]
     trial_key  <- extract_trialkey(exp_key,trial)

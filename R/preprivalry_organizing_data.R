@@ -17,7 +17,7 @@
 #'     the function adds to the beginning of participant code a letter 's' and
 #'     changes the variable into character.
 #'
-#' @import R.matlab
+#' @importFrom R.matlab readMat
 #'
 #' @param directory character -- the directory in which the data are stored
 #' @param expType character -- the experiment name of the current run
@@ -159,8 +159,6 @@ extract_trialkey <- function(key,trial){
 #' @param trial data.frame -- contains trial info
 #' @param percept_keys matrix -- contains the keycodes for each percept
 #'
-#' @import dplyr
-#'
 #' @return list -- contains the onset and duration info for each percept by keycode
 #' @export
 #'
@@ -173,11 +171,9 @@ preprocessing_trial <- function(trial_key,trial,percept_keys){
   for(p in 1:length(percept_keys)){
     theKey <- percept_keys[p]
     perceptStartTime <- trial_key[trial_key['idDown']==theKey,]
-    perceptStartTime <- dplyr::select(perceptStartTime,timeDown)
-    perceptStartTime <- as.numeric(unlist(perceptStartTime))
+    perceptStartTime <- perceptStartTime$timeDown
     perceptEndTime   <- trial_key[trial_key['idUp']==theKey,]
-    perceptEndTime   <- dplyr::select(perceptEndTime,timeUp)
-    perceptEndTime   <- as.numeric(unlist(perceptEndTime))
+    perceptEndTime   <- perceptEndTime$timeUp
     trial_data[[p]]  <- data.frame(key  = theKey,
                                   onset = perceptStartTime - as.numeric(unlist(trial[1])),
                                   duration = c(perceptEndTime - perceptStartTime))

@@ -16,8 +16,8 @@ Suggests:
     rmarkdown,
     testthat
 VignetteBuilder: knitr
-Imports: R.matlab, 
-    dplyr
+Imports: R.matlab,
+    stats
 URL: https://github.com/cemreyilmaz/preprivalry
 BugReports: https://github.com/cemreyilmaz/preprivalry/issues
 RoxygenNote: 7.1.1
