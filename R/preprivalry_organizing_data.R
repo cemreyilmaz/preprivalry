@@ -168,8 +168,9 @@ extract_trialkey <- function(key,trial){
 #' }
 preprocessing_trial <- function(trial_key,trial,percept_keys){
   trial_data <- list()
+  percept_keys <- unique(trial_key['idDown'])
   for(p in 1:length(percept_keys)){
-    theKey <- percept_keys[p]
+    theKey <- percept_keys[p,]
     perceptStartTime <- trial_key[trial_key['idDown']==theKey,]
     perceptStartTime <- perceptStartTime$timeDown
     perceptEndTime   <- trial_key[trial_key['idUp']==theKey,]
@@ -233,6 +234,7 @@ reorganize_preptrial <- function(key,trial){
   key <- data.frame(
     idDown   = c(key$idDown, numeric(length(key$timeUp)-1)),
     timeDown = c(key$timeDown, key$timeUp[1:(length(key$timeUp)-1)])- as.numeric(unlist(trial[1])),
+    idUp   = c(key$idUp, numeric(length(key$timeUp)-1)),
     timeUp   = c(key$timeUp, key$timeDown[2:length(key$timeDown)])- as.numeric(unlist(trial[1])))
   key <- key[order(key$timeDown),]
 }
