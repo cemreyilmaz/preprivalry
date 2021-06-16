@@ -12,9 +12,11 @@ License: GPL-3
 Encoding: UTF-8
 LazyData: true
 Suggests: 
+    devtools,
     knitr,
     rmarkdown,
-    testthat
+    testthat,
+    roxygen2
 VignetteBuilder: knitr
 Imports: R.matlab,
     stats

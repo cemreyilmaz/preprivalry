@@ -10,8 +10,10 @@ status](https://travis-ci.com/cemreyilmaz/preprivalry.svg?branch=master)](https:
 <!-- badges: end -->
 
 The goal of preprivalry is the preprocessing of binocular rivalry data
-which are collected in the project via PsychToolbox in MATLAB
-environment.
+which are collected via PsychToolbox in MATLAB environment in the
+project by NeuroVision research group in the University of Graz. A
+rivalry data-set can be analyzed by using this package if it is
+organized as required.
 
 ## Installation
 
@@ -22,6 +24,33 @@ You can install the released version of preprivalry from
 install.packages("preprivalry")
 ```
 
+## Data structure
+
+Since our data were collected on MATLAB, this package includes some
+functions to reorganize the data.
+
+#### MATLAB data
+
+Our .mat file includes a MATLAB structure named as log. Besides the
+other variable, its forth component is a struct containing the key
+events and fifth component is a struct containing the experiment info,
+as the following:
+
+    raw_data
+      --raw_data.key
+        --raw_data.key.perceptKeys  # key codes of instructed keys  [key_1, key_2]
+        --raw_data.key.perceptNames # key names of instructed keys  {key_1, key_2}
+        --raw_data.key.idDown       # key codes of pressed keys     [nx1 double]
+        --raw_data.key.timeDown     # time points for pressed keys  [nx1 double]
+        --raw_data.key.idUp         # key codes of released keys    [nx1 double]
+        --raw_data.key.timeUp       # time points for released keys [nx1 double]
+      --raw_data.exp
+        --raw_data.exp.trialStartTime # [trial_1, trial_2]
+        --raw_data.exp.trialEndTime   # [trial_1, trial_2]
+
+We saved separate .mat files for each experimental run by naming the
+file as: ExperimentName\_s\#\#\#\_session\#\_run\#\_date.mat
+
 ## Example
 
 The subject data can be preprocessed by using only one function:
@@ -29,7 +58,7 @@ The subject data can be preprocessed by using only one function:
 ``` r
 library(preprivalry)
 ## basic example for preprocessing of subject data
-directory <- paste(getwd(), '/tests',sep='')
+directory <- paste(getwd(), '/tests', sep='')
 exp_list <- c('RivalryGratings','RivalryImages')
 subj <- 's001'
 ses <- 1
@@ -50,7 +79,7 @@ raw_data <- read_rivdata(directory,exp_list[1],subj,'session1')
 percept_keys <- rbind(raw_data[["log"]][[4]][[1]],
                       c(raw_data[["log"]][[4]][[2]][[1]][[1]],raw_data[["log"]][[4]][[2]][[2]][[1]]))
 data <- preprocessing_subject(directory,exp_list,subj,ses)
-reorganize_as_csv(data,output_file,percept_keys,subj)
+data <- reorganize_as_table(data)
 ```
 
 Check the function file preprivalry\_preprocessing\_data.R to see more
@@ -71,5 +100,5 @@ trialEndTime <- c(16412842,16412859)
 exp <- data.frame(trialStartTime,trialEndTime)
 trial_key <- extract_trialkey(exp_key,exp[1,])
 trial_key <- clean_keyevents(trial_key,2)
-data <- reorganize_prepdata(trial_key,exp[1,])
+data <- reorganize_preptrial(trial_key,exp[1,])
 ```
