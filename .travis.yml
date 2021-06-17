@@ -4,6 +4,7 @@ language: r
 sudo: false
 cache: packages
 warnings_are_errors: true
+disable_homebrew: true
 
 os:
   - linux
