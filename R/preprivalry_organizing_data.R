@@ -168,9 +168,9 @@ extract_trialkey <- function(key,trial){
 #' }
 preprocessing_trial <- function(trial_key,trial,percept_keys){
   trial_data <- list()
-  percept_keys <- unique(trial_key['idDown'])
+  percept_keys <- as.matrix(unlist(unique(trial_key['idDown'])))
   for(p in 1:length(percept_keys)){
-    theKey <- percept_keys[p,]
+    theKey <- percept_keys[p]
     perceptStartTime <- trial_key[trial_key['idDown']==theKey,]
     perceptStartTime <- perceptStartTime$timeDown
     perceptEndTime   <- trial_key[trial_key['idUp']==theKey,]
@@ -241,8 +241,8 @@ reorganize_preptrial <- function(key,trial){
 # ---------------------------------------------------------------------------- #
 #' Saving the preprocessed data as csv
 #'
-#' This function reorganizes the preprocessed data and saves it as table structure.
-#' You can save the output as a csv file.
+#' This function reorganizes the preprocessed data of a subject and saves it as
+#' table structure.You can save the output as a csv file.
 #'
 #' @param data list -- preprocessed data which is the output of preprocessing functions
 #'

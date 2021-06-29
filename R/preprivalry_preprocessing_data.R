@@ -121,7 +121,7 @@ preprocessing_run <- function(directory,expType,participant,session){
   rivdata <- read_rivdata(directory,expType,participant,session)
   exp     <- extract_exp(rivdata)
   exp_key <- extract_key(rivdata)
-  percept_keys <- rivdata[["log"]][[4]][[1]]
+  percept_keys <- as.numeric(unlist(rivdata[["log"]][[4]][[1]]))
   key_data     <- list()
   for(t in 1:length(exp)){
     trial      <- exp[t,]
