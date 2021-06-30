@@ -8,7 +8,6 @@ disable_homebrew: true
 
 os:
   - linux
-  - osx
 r:
   - oldrel
   - release

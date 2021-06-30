@@ -30,10 +30,10 @@ preprocessing_subject <- function(directory,expList,participant,sessions){
     participant <- paste('s',sprintf('%03d', participant),sep = '')
   }
   for(session_no in 1:sessions){
-    session_data <- preprocessing_session(directory,expList,participant,session_no)
+    session_data <- preprivalry::preprocessing_session(directory,expList,participant,session_no)
     data[[session_no]] <- session_data
   }
-  rivdata <- read_rivdata(directory,expList[1],participant,'session1')
+  rivdata <- preprivalry::read_rivdata(directory,expList[1],participant,'session1')
   data[['percept_keys']] <- rbind(rivdata[["log"]][[4]][[1]],
                                   c(rivdata[["log"]][[4]][[2]][[1]][[1]],rivdata[["log"]][[4]][[2]][[2]][[1]]))
   data[['subject']] <- participant
@@ -74,7 +74,8 @@ preprocessing_session <- function(directory,expList,participant,session_no){
   data <- list()
   for(expNo in 1:length(expList)){
     expType  <- expList[expNo]
-    run_data <- preprocessing_run(directory,expType,participant,session)
+    run_data <- preprivalry::preprocessing_run(directory,expType,participant,session)
+    run_data <- preprivalry::eye_dominance(run_data)
     data[[expNo]] <- run_data
   }
   return(data)
@@ -118,17 +119,17 @@ preprocessing_run <- function(directory,expType,participant,session){
   if(is.numeric(session)){
     session <- paste('session', session, sep = '')
   }
-  rivdata <- read_rivdata(directory,expType,participant,session)
-  exp     <- extract_exp(rivdata)
-  exp_key <- extract_key(rivdata)
+  rivdata <- preprivalry::read_rivdata(directory,expType,participant,session)
+  exp     <- preprivalry::extract_exp(rivdata)
+  exp_key <- preprivalry::extract_key(rivdata)
   percept_keys <- as.numeric(unlist(rivdata[["log"]][[4]][[1]]))
   key_data     <- list()
   for(t in 1:length(exp)){
     trial      <- exp[t,]
-    trial_key  <- extract_trialkey(exp_key,trial)
-    trial_key  <- clean_keyevents(trial_key,2)
-    d <- preprocessing_trial(trial_key,trial,percept_keys)
-    d[[length(d)+1]] <- create_transitionkey(trial_key,trial)
+    trial_key  <- preprivalry::extract_trialkey(exp_key,trial)
+    trial_key  <- preprivalry::clean_keyevents(trial_key,2)
+    d <- preprivalry::preprocessing_trial(trial_key,trial,percept_keys)
+    d[[length(d)+1]] <- preprivalry::create_transitionkey(trial_key,trial)
     key_data[[t]]    <- d
   }
   return(key_data)

@@ -19,7 +19,11 @@ Suggests:
     roxygen2
 VignetteBuilder: knitr
 Imports: R.matlab,
-    stats
+    dplyr,
+    stats,
+    ggplot2,
+    ggpubr,
+    graphics
 URL: https://github.com/cemreyilmaz/preprivalry
 BugReports: https://github.com/cemreyilmaz/preprivalry/issues
 RoxygenNote: 7.1.1

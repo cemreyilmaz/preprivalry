@@ -260,6 +260,7 @@ reorganize_as_table <- function(data){
   subjID <- data[['subject']]
   data <- data[1:(length(data)-2)]
   id <- c()
+  eye <- c()
   timeUp   <- c()
   timeDown <- c()
   session  <- c()
@@ -273,14 +274,17 @@ reorganize_as_table <- function(data){
         tmp_id <- c()
         tmp_timeDown <- c()
         tmp_timeUp <- c()
+        tmp_eye <- c()
         for(l in 1:length(tmp)){# each percept key
           curr_tmp <- tmp[[l]]
           tmp_id  <- c(tmp_id, curr_tmp$key)
+          tmp_eye  <- c(tmp_eye, curr_tmp$eye_info)
           tmp_timeDown <- c(tmp_timeDown, curr_tmp$onset)
           tmp_timeUp <- c(tmp_timeUp, curr_tmp$onset + curr_tmp$duration)
         }
         index_order <- order(tmp_timeDown)
         id <- c(id, tmp_id[index_order])
+        eye <- c(eye, tmp_eye[index_order])
         timeUp <- c(timeUp, tmp_timeUp[index_order])
         timeDown <- c(timeDown, tmp_timeDown[index_order])
         trial <- c(trial,(numeric(length(tmp_timeUp)) + k))
@@ -294,6 +298,6 @@ reorganize_as_table <- function(data){
   keyname[id == percept_keys[1,2]] <- percept_keys[2,2]
   keyname[id == 0] <- 'Transition'
   duration <- timeUp - timeDown
-  table <- data.frame(subject,session,run,trial,keyname,id,timeDown,timeUp,duration)
+  table <- data.frame(subject,session,run,trial,keyname,id,eye,timeDown,timeUp,duration)
 }
 # ---------------------------------------------------------------------------- #

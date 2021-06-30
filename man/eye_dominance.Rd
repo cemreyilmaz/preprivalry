@@ -4,17 +4,17 @@
 \alias{eye_dominance}
 \title{Adding eye info for each dominant percept}
 \usage{
-eye_dominance(data, eye_trials, trial_sequence)
+eye_dominance(key_data, eye_trials, trial_sequence)
 }
 \arguments{
-\item{data}{data.frame -- binocular rivalry data}
+\item{key_data}{list -- output of run preprocessing}
 
 \item{eye_trials}{numeric -- trial labels for different presentations}
 
 \item{trial_sequence}{numeric -- trial labels for the actual experiment}
 }
 \value{
-data.frame -- binocular rivalry data added with eye info
+list -- binocular rivalry key_data added with eye info
 }
 \description{
 This function defines which eye was being presented with the dominant percept
@@ -23,6 +23,6 @@ interchanged from one trial to another by default.
 }
 \examples{
 \dontrun{
-data <- table(trial,id,timeDown,timeUp)
-output <- eye_dominance(data,c(1,2),c(1,2))}
+key_data <- preprocessing_run(directory,expType,participant,session)
+output <- eye_dominance(key_data,c(1,2),c(1,2))}
 }

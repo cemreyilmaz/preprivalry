@@ -13,8 +13,8 @@ reorganize_as_table(data)
 data.frame -- preprocessed data reorganized as table
 }
 \description{
-This function reorganizes the preprocessed data and saves it as table structure.
-You can save the output as a csv file.
+This function reorganizes the preprocessed data of a subject and saves it as
+table structure.You can save the output as a csv file.
 }
 \examples{
 \dontrun{
