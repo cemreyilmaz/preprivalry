@@ -51,6 +51,7 @@ plot_keyevents <- function(data,sessionNo,runNo,trialNo){
     ggplot2::theme(axis.text.y = ggplot2::element_text(angle = 90, vjust = 0.5, hjust=1),
                    legend.position="top")
   p
+  return(p)
 }
 # ---------------------------------------------------------------------------- #
 #' Plot the duration of each percept and transition
@@ -98,7 +99,7 @@ plot_perceptdurations <- function(data,sessionNo,runNo,trialNo){
   for(i in 1:length(y)){
     x <- dplyr::filter(data, keyname==y[i])
     if(i==1){
-      p <- graphics::plot(rbind(as.numeric(unlist(x[1,]['timeDown'])),as.numeric(unlist(x[1,]['timeUp']))),
+      graphics::plot(rbind(as.numeric(unlist(x[1,]['timeDown'])),as.numeric(unlist(x[1,]['timeUp']))),
                      c(i,i), type='l', xlim=limits, ylim=c(0,4), col=colors[2,colors[1,]==y[i]], yaxt="n",
                      main='Sorted Percepts', ylab='', xlab='Time (sec)')
       for(j in 2:dim(x)[1]){
@@ -116,8 +117,7 @@ plot_perceptdurations <- function(data,sessionNo,runNo,trialNo){
   # rename yticks
   axis(side=2, at=1:3, labels = FALSE)
   graphics::text(y=1:length(y),par('usr')[3],labels = paste(y,'   '),
-                 pos = 2, xpd = TRUE)
-  return(NULL)
+                 pos = 2, srt=30, xpd = TRUE)
 }
 # ---------------------------------------------------------------------------- #
 #' Draw histogram of percept durations
@@ -174,7 +174,6 @@ hist_perceptdurations <- function(data,sessionNo,runNo,trialNo){
          col=colors[i],
          freq=FALSE)
   }
-  return(NULL)
 }
 # ---------------------------------------------------------------------------- #
 #' Barplot as a statistical summary of given data
@@ -278,6 +277,5 @@ bar_stats <- function(data,sessionNo,runNo,trialNo){
     ggplot2::labs(title='Total Eye', x=NULL, y='Duration (sec)') +
     ggplot2::theme(axis.text.x = ggplot2::element_text(angle = 90, vjust = 0.5, hjust=1))
   p <- ggpubr::ggarrange(k1,k2,k3,e1,e2,e3, ncol = 3, nrow = 2)
-
-
+  return(p)
 }

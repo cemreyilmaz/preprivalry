@@ -12,7 +12,7 @@ status](https://travis-ci.com/cemreyilmaz/preprivalry.svg?branch=master)](https:
 The goal of preprivalry is the preprocessing of binocular rivalry data
 which are collected via PsychToolbox in MATLAB environment in the
 project by NeuroVision research group in the University of Graz. A
-rivalry data-set can be analyzed by using this package if it is
+rivalry data-set can be preprocessed by using this package if it is
 organized as required.
 
 ## Installation
@@ -65,7 +65,8 @@ ses <- 1
 data <- preprocessing_subject(directory,exp_list,subj,ses)
 ```
 
-The output can be saved also as an excel file as following:
+The output can be saved also as an excel file after organizing as a
+table:
 
 ``` r
 library(preprivalry)
@@ -83,22 +84,50 @@ data <- reorganize_as_table(data)
 ```
 
 Check the function file preprivalry\_preprocessing\_data.R to see more
-details and to customize the workflow. For example, you can reorganize
-the trial data and use it for further analysis by using the key events
-and trial info:
+details and to customize the work flow.
+
+## Visualization
+
+After preprocessing, the data can be visualized to check the key events,
+percept duration, and eye dominance. There is a set of visualization
+functions in the package. You can use those functions to visualize the
+data in a specified trial, run, and/or session.
+
+### Example
+
+The input for the visualization functions is the same: data, session\#,
+run\#, tiral\#. You can visualize the data for a run or a trial.
+Althought you do not have to, we recommend to specify at least session
+and run since the output would be little messy and not useful for
+interpretation.
 
 ``` r
 library(preprivalry)
-## basic example for preprocessing of trial data
-idUp <- c(39,39,37,37,39,37)
-timeUp <- c(16412818,16412831,16412841,16412846,16412852,16412857)
-idDown <- c(39,39,37,37,39,37)
-timeDown <- c(16412817,16412825,16412834,16412844,16412847,16412854)
-exp_key <- data.frame(idUp,timeUp,idDown,timeDown)
-trialStartTime <- c(16412816,16412843)
-trialEndTime <- c(16412842,16412859)
-exp <- data.frame(trialStartTime,trialEndTime)
-trial_key <- extract_trialkey(exp_key,exp[1,])
-trial_key <- clean_keyevents(trial_key,2)
-data <- reorganize_preptrial(trial_key,exp[1,])
+## basic example for preprocessing of subject data
+directory <- paste(getwd(), '/tests', sep='')
+exp_list <- c('RivalryGratings','RivalryImages')
+subj <- 's001'
+ses <- 1
+data <- preprocessing_subject(directory,exp_list,subj,ses)
+plot_keyevents(data,1,1,1)
 ```
+
+<img src="man/figures/README-vis-example-1.png" width="100%" />
+
+``` r
+plot_perceptdurations(data,1,1,1)
+```
+
+<img src="man/figures/README-vis-example-2.png" width="100%" />
+
+``` r
+hist_perceptdurations(data,1,1,1)
+```
+
+<img src="man/figures/README-vis-example-3.png" width="100%" />
+
+``` r
+bar_stats(data,1,1,1)
+```
+
+<img src="man/figures/README-vis-example-4.png" width="100%" />
