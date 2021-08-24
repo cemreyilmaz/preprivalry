@@ -113,12 +113,14 @@ remove_irrelevant_keyevents <- function(key,percept_keys){
   time_up <- key$timeUp[!is.na(key['idUp'])]
   name_up <- key$nameUp[!is.na(key['idUp'])]
   # first, remove irrelevant key events
-  id_down <- id_down[(id_down == percept_keys[1] | id_down == percept_keys[2])]
-  time_down <- time_down[(id_down == percept_keys[1] | id_down == percept_keys[2])]
-  name_down <- name_down[(id_down == percept_keys[1] | id_down == percept_keys[2])]
-  id_up <- id_up[(id_up == percept_keys[1] | id_up == percept_keys[2])]
-  time_up <- time_up[(id_up == percept_keys[1] | id_up == percept_keys[2])]
-  name_up <- name_up[(id_up == percept_keys[1] | id_up == percept_keys[2])]
+  keep_down <- (id_down == percept_keys[1] | id_down == percept_keys[2])
+  id_down <- id_down[keep_down]
+  time_down <- time_down[keep_down]
+  name_down <- name_down[keep_down]
+  keep_up <- (id_up == percept_keys[1] | id_up == percept_keys[2])
+  id_up <- id_up[keep_up]
+  time_up <- time_up[keep_up]
+  name_up <- name_up[keep_up]
   for(i in 1:2){
     if(length(id_down) < length(id_up)){
       if(time_down[1]<time_up[1]){ # remove last release
