@@ -27,6 +27,39 @@ clean_keyevents <- function(key,percept_keys,iteration){
   key$idDown[!(key$idDown == percept_keys[1] | key$idDown == percept_keys[2])] <- NaN
   key$timeDown[!(key$idDown == percept_keys[1] | key$idDown == percept_keys[2])] <- NaN
   key$nameDown[!(key$idDown == percept_keys[1] | key$idDown == percept_keys[2])] <- NaN
+  id_down <- key$idDown[!is.na(key['idDown'])]
+  time_down <- key$timeDown[!is.na(key['idDown'])]
+  name_down <- key$nameDown[!is.na(key['idDown'])]
+  id_up <- key$idUp[!is.na(key['idUp'])]
+  time_up <- key$timeUp[!is.na(key['idUp'])]
+  name_up <- key$nameUp[!is.na(key['idUp'])]
+  if(length(id_down) < length(id_up)){
+    if(time_down[1]<time_up[1]){ # remove last release
+      id_up <- id_up[1:(length(id_up)-1)]
+      time_up <- time_up[1:(length(time_up)-1)]
+      name_up <- name_up[1:(length(name_up)-1)]
+    }
+    if(time_down[1]>time_up[1]){ # remove first release
+      id_up <- id_up[2:length(id_up)]
+      time_up <- time_up[2:length(time_up)]
+      name_up <- name_up[2:length(name_up)]
+    }
+  }
+  if(length(id_down) > length(id_up)){
+    if(time_down[1]<time_up[1]){ # remove last press
+      id_down <- id_down[1:(length(id_down)-1)]
+      time_down <- time_down[1:(length(time_down)-1)]
+      name_down <- name_down[1:(length(name_down)-1)]
+    }
+    if(time_down[1]>time_up[1]){ # remove first press
+      id_down <- id_down[2:length(id_down)]
+      time_down <- time_down[2:length(time_down)]
+      name_down <- name_down[2:length(name_down)]
+    }
+  }
+  key <- data.frame(idDown = id_down, timeDown = time_down, nameDown = name_down,
+                    idUp = id_up, timeUp = time_up, nameUp = name_up)
+  # -------------------------------------------------------------------------- #
   for(i in 1:iteration){
     # if keyUp comes before first keyDown
     # => delete first release
