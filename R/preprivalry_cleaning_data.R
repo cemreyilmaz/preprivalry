@@ -9,6 +9,7 @@
 #' beginning with different key-codes.
 #'
 #' @param key a dataframe containing info about key events
+#' @param percept_keys matrix -- contains the keycodes for each percept
 #' @param iteration a numeric input for the number of iteration of this cleaning process
 #'
 #' @return key a dataframe containing the organized key events
