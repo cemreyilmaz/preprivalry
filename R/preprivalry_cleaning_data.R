@@ -31,7 +31,7 @@ clean_keyevents <- function(key,iteration){
     length_key <- dim(key)
     length_key <- length_key[1]
     if(key$idUp[1] != key$idDown[1]){
-      key <- key[2:length_key]
+      key <- key[2:length_key,]
     }
     # if last keyDown comes after last keyUp
     # => delete last press
