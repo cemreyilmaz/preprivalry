@@ -100,7 +100,7 @@ clean_keyevents <- function(key,iteration){
 #'
 #' @examples
 #' \dontrun{
-#' clean_keyevents(trial_key,percept_keys)}
+#' remove_irrelevant_keyevents(trial_key,percept_keys)}
 remove_irrelevant_keyevents <- function(key,percept_keys){
   # first, remove irrelevant key events
   key$idUp[!(key$idUp == percept_keys[1] | key$idUp == percept_keys[2])] <- NaN
