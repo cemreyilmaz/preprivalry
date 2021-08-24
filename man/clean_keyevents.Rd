@@ -4,10 +4,12 @@
 \alias{clean_keyevents}
 \title{Cleaning key events}
 \usage{
-clean_keyevents(key, iteration)
+clean_keyevents(key, percept_keys, iteration)
 }
 \arguments{
 \item{key}{a dataframe containing info about key events}
+
+\item{percept_keys}{matrix -- contains the keycodes for each percept}
 
 \item{iteration}{a numeric input for the number of iteration of this cleaning process}
 }
