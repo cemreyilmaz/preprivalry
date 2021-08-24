@@ -18,13 +18,21 @@
 #' \dontrun{
 #' clean_keyevents(trial_key,2)
 #' }
-clean_keyevents <- function(key,iteration){
+clean_keyevents <- function(key,percept_keys,iteration){
+  # first, remove irrelevant key events
+  key$idUp[!(key$idUp == percept_keys[1] | key$idUp == percept_keys[2])] <- NaN
+  key$timeUp[!(key$idUp == percept_keys[1] | key$idUp == percept_keys[2])] <- NaN
+  key$nameUp[!(key$idUp == percept_keys[1] | key$idUp == percept_keys[2])] <- NaN
+  key$idDown[!(key$idDown == percept_keys[1] | key$idDown == percept_keys[2])] <- NaN
+  key$timeDown[!(key$idDown == percept_keys[1] | key$idDown == percept_keys[2])] <- NaN
+  key$nameDown[!(key$idDown == percept_keys[1] | key$idDown == percept_keys[2])] <- NaN
   for(i in 1:iteration){
     # if keyUp comes before first keyDown
     # => delete first release
     if(key$timeUp[1] < key$timeDown[1]){
-      key$idUp   <- c(key$idUp[2:(length(key$idUp-1))],NaN)
-      key$timeUp <- c(key$timeUp[2:(length(key$timeUp-1))],NaN)
+      key$idUp   <- c(key$idUp[2:(length(key$idUp)-1)],NaN)
+      key$timeUp <- c(key$timeUp[2:(length(key$timeUp)-1)],NaN)
+      key$nameUp <- c(key$nameUp[2:(length(key$nameUp)-1)],NaN)
     }
     # if keyUp and keyDown are not of the same percept at the beginning
     # => delete first key event
@@ -38,6 +46,7 @@ clean_keyevents <- function(key,iteration){
     if(key$timeDown[length(key$timeDown[!is.na(key$timeDown)])] > key$timeUp[length(key$timeUp[!is.na(key$timeUp)])]){
       key$idDown   <- c(key$idDown[1:(length(key$idDown)-1)],NaN)
       key$timeDown <- c(key$timeDown[1:(length(key$timeDown)-1)],NaN)
+      key$nameDown <- c(key$nameDown[1:(length(key$nameDown)-1)],NaN)
     }
     # if keyUp and keyDown are not of the same percept at the end
     # => delete last key event
@@ -46,13 +55,19 @@ clean_keyevents <- function(key,iteration){
     if(key$idUp[length(key$idUp[!is.na(key$idUp)])] != key$idDown[length(key$idDown[!is.na(key$idDown)])]){
       key$idUp[length(key$idUp[!is.na(key$idUp)])] <- NaN
       key$timeUp[length(key$timeUp[!is.na(key$timeUp)])] <- NaN
+      key$nameUp[length(key$tnameUp[!is.na(key$nameUp)])] <- NaN
       key$idDown[length(key$idDown[!is.na(key$idDown)])] <- NaN
       key$timeDown[length(key$timeDown[!is.na(key$timeDown)])] <- NaN
+      key$nameDown[length(key$nameDown[!is.na(key$nameDown)])] <- NaN
     }
-    key <- key[!is.na(key['idDown']),]
-    key <- key[!is.na(key['timeDown']),]
-    key <- key[!is.na(key['idUp']),]
-    key <- key[!is.na(key['timeUp']),]
+    id_down <- key$idDown[!is.na(key['idDown']),]
+    time_down <- key$timeDown[!is.na(key['timeDown']),]
+    name_down <- key$nameDown[!is.na(key['nameDown']),]
+    id_up <- key$idUp[!is.na(key['idUp']),]
+    time_up <- key$timeUp[!is.na(key['timeUp']),]
+    name_up <- key$nameUp[!is.na(key['nameUp']),]
+    key <- data.frame(idDown = id_down, timeDown = time_down, nameDown = name_down,
+                      idUp = id_up, timeUp = time_up, nameUp = name_up)
   }
   return(key)
 }
