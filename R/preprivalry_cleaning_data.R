@@ -25,6 +25,7 @@ clean_keyevents <- function(key,iteration){
   id_down <- key$idDown
   time_down <- key$timeDown
   name_down <- key$nameDown
+  # cleaning
   for(i in 1:iteration){
     # if keyUp comes before first keyDown
     # => delete first release
@@ -60,7 +61,8 @@ clean_keyevents <- function(key,iteration){
       time_down <- time_down[1:(length(time_down)-1)]
       name_down <- name_down[1:(length(name_down)-1)]
     }
-  }
+  } # end
+  # check if there is a mismatch between the length of arrays
   if(length(id_down) < length(id_up)){
     if(time_down[1]<time_up[1]){ # remove last release
       id_up <- id_up[1:(length(id_up)-1)]
@@ -85,6 +87,7 @@ clean_keyevents <- function(key,iteration){
       name_down <- name_down[2:length(name_down)]
     }
   }
+  # re-define "key"
   key <- data.frame(idDown = id_down, timeDown = time_down, nameDown = name_down,
                     idUp = id_up, timeUp = time_up, nameUp = name_up)
   return(key)
