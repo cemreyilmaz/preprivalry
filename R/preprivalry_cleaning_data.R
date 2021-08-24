@@ -31,9 +31,9 @@ clean_keyevents <- function(key,percept_keys,iteration){
     # if keyUp comes before first keyDown
     # => delete first release
     if(key$timeUp[1] < key$timeDown[1]){
-      key$idUp   <- c(key$idUp[2:(length(key$idUp)-1)],NaN)
-      key$timeUp <- c(key$timeUp[2:(length(key$timeUp)-1)],NaN)
-      key$nameUp <- c(key$nameUp[2:(length(key$nameUp)-1)],NaN)
+      key$idUp   <- c(NaN, key$idUp[2:length(key$idUp)])
+      key$timeUp <- c(NaN, key$timeUp[2:length(key$timeUp)])
+      key$nameUp <- c(NaN, key$nameUp[2:length(key$nameUp)])
     }
     # if keyUp and keyDown are not of the same percept at the beginning
     # => delete first key event
