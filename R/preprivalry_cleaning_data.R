@@ -84,9 +84,9 @@ clean_keyevents <- function(key,iteration){
       time_down <- time_down[2:length(time_down)]
       name_down <- name_down[2:length(name_down)]
     }
-    key <- data.frame(idDown = id_down, timeDown = time_down, nameDown = name_down,
-                      idUp = id_up, timeUp = time_up, nameUp = name_up)
   }
+  key <- data.frame(idDown = id_down, timeDown = time_down, nameDown = name_down,
+                    idUp = id_up, timeUp = time_up, nameUp = name_up)
   return(key)
 }
 # ---------------------------------------------------------------------------- #
