@@ -63,10 +63,10 @@ clean_keyevents <- function(key,percept_keys,iteration){
     }
     id_down <- key$idDown[!is.na(key['idDown'])]
     time_down <- key$timeDown[!is.na(key['timeDown'])]
-    name_down <- key$nameDown[!is.na(key['nameDown'])]
+    name_down <- key$nameDown[!is.na(key['timeDown'])]
     id_up <- key$idUp[!is.na(key['idUp'])]
     time_up <- key$timeUp[!is.na(key['timeUp'])]
-    name_up <- key$nameUp[!is.na(key['nameUp'])]
+    name_up <- key$nameUp[!is.na(key['timeUp'])]
     if(length(id_down) < length(id_up)){
       if(time_down[1]<time_up[1]){ # remove last release
         id_up <- id_up[1:(length(id_up)-1)]
