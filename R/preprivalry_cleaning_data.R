@@ -53,7 +53,7 @@ clean_keyevents <- function(key,iteration){
     key <- key[!is.na(key['timeDown']),]
     key <- key[!is.na(key['idUp']),]
     key <- key[!is.na(key['timeUp']),]
-    return(key)
   }
+  return(key)
 }
 # ---------------------------------------------------------------------------- #
