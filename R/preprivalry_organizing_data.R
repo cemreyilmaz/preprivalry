@@ -160,16 +160,19 @@ extract_trialkey <- function(key,trial){
   time_down <- time_down[keep_down]
   name_down <- name_down[keep_down]
 
-  if(length(id_up) < length(id_down)){
-    id_up <- c(id_up, NaN)
-    time_up <- c(time_up, NaN)
-    name_up <- c(name_up, NaN)
+  for(i in 1:2){
+    if(length(id_up) < length(id_down)){
+      id_up <- c(id_up, NaN)
+      time_up <- c(time_up, NaN)
+      name_up <- c(name_up, NaN)
+    }
+    if(length(id_up) > length(id_down)){
+      id_down <- c(id_down, NaN)
+      time_down <- c(time_down, NaN)
+      name_down <- c(name_down, NaN)
+    }
   }
-  if(length(id_up) > length(id_down)){
-    id_down <- c(id_down, NaN)
-    time_down <- c(time_down, NaN)
-    name_down <- c(name_down, NaN)
-  }
+
   key <- data.frame(idUp = id_up, timeUp = time_up, nameUp = name_up,
                     idDown = id_down, timeDown = time_down, nameDown = name_down)
 }
