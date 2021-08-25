@@ -2,6 +2,7 @@
 
 export(bar_stats)
 export(clean_keyevents)
+export(create_nan_trialdata)
 export(create_transitionkey)
 export(descriptive_eye)
 export(descriptive_trial)
