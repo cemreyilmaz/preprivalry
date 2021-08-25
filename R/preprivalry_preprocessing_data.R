@@ -127,11 +127,16 @@ preprocessing_run <- function(directory,expType,participant,session){
   for(t in 1:length(exp)){
     trial      <- exp[t,]
     trial_key  <- preprivalry::extract_trialkey(exp_key,trial)
-    trial_key  <- preprivalry::remove_irrelevant_keyevents(trial_key,percept_keys)
-    trial_key  <- preprivalry::clean_keyevents(trial_key,2)
-    d <- preprivalry::preprocessing_trial(trial_key,trial,percept_keys)
-    d[[length(d)+1]] <- preprivalry::create_transitionkey(trial_key,trial)
-    key_data[[t]]    <- d
+    if(dim(trial_key)[1] > 1){
+      trial_key  <- preprivalry::remove_irrelevant_keyevents(trial_key,percept_keys)
+      trial_key  <- preprivalry::clean_keyevents(trial_key,2)
+      d <- preprivalry::preprocessing_trial(trial_key,trial,percept_keys)
+      d[[length(d)+1]] <- preprivalry::create_transitionkey(trial_key,trial)
+      key_data[[t]]    <- d
+    }
+    else{
+      key_data[[t]]    <- create_nan_trialdata(percept_keys)
+    }
   }
   return(key_data)
 }
