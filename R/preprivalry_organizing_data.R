@@ -350,5 +350,6 @@ create_nan_trialdata <- function(percept_keys){
                                    onset = perceptStartTime,
                                    duration = perceptEndTime - perceptStartTime)
   }
+  return(trial_data)
 }
 # ---------------------------------------------------------------------------- #
