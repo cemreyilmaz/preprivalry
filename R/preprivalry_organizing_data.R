@@ -144,10 +144,34 @@ extract_trialkey <- function(key,trial){
   if(!is.numeric(trial)){
     trial <- as.numeric(unlist(trial))
   }
-  key     <- key[key$timeUp > trial[1] &
-                 key$timeUp < trial[2] &
-                 key$timeDown > trial[1] &
-                 key$timeDown < trial[2],]
+  id_up <- key$idUp
+  time_up <- key$timeUp
+  name_up <- key$nameUp
+  id_down <- key$idDown
+  time_down <- key$timeDown
+  name_down <- key$nameDown
+  keep_up <- time_up > trial[1] & time_up < trial[2]
+  keep_down <- time_down > trial[1] & time_down < trial[2]
+
+  id_up <- id_up[keep_up]
+  time_up <- time_up[keep_up]
+  name_up <- name_up[keep_up]
+  id_down <- id_down[keep_down]
+  time_down <- time_down[keep_down]
+  name_down <- name_down[keep_down]
+
+  if(length(id_up) < length(id_down)){
+    id_up <- c(id_up, NaN)
+    time_up <- c(time_up, NaN)
+    name_up <- c(name_up, NaN)
+  }
+  if(length(id_up) > length(id_down)){
+    id_down <- c(id_down, NaN)
+    time_down <- c(time_down, NaN)
+    name_down <- c(name_down, NaN)
+  }
+  key <- data.frame(idUp = id_up, timeUp = time_up, nameUp = name_up,
+                    idDown = id_down, timeDown = time_down, nameDown = name_down)
 }
 # ---------------------------------------------------------------------------- #
 #' Preprocessing of key events in a trial
