@@ -32,7 +32,7 @@ clean_keyevents <- function(key,iteration){
     if(time_up[1] < time_down[1]){
       id_up   <- id_up[2:length(id_up)]
       time_up   <- time_up[2:length(time_up)]
-      name_up   <- id_up[2:length(name_up)]
+      name_up   <- name_up[2:length(name_up)]
     }
     # if keyUp and keyDown are not of the same percept at the beginning
     # => delete first key event
