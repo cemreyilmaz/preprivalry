@@ -135,7 +135,7 @@ preprocessing_run <- function(directory,expType,participant,session){
       key_data[[t]]    <- d
     }
     else{
-      key_data[[t]]    <- create_nan_trialdata(percept_keys)
+      key_data[[t]]    <- preprivalry::create_nan_trialdata(percept_keys)
     }
   }
   return(key_data)
