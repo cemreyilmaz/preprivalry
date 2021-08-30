@@ -341,7 +341,6 @@ reorganize_as_table <- function(data){
 #' \dontrun{create_nan_trialdata(percept_keys)}
 create_nan_trialdata <- function(percept_keys){
   trial_data <- list()
-  percept_keys <- as.matrix(unlist(unique(trial_key['idDown'])))
   for(p in 1:length(percept_keys)){
     theKey <- percept_keys[p]
     perceptStartTime <- NaN
@@ -350,6 +349,9 @@ create_nan_trialdata <- function(percept_keys){
                                    onset = perceptStartTime,
                                    duration = perceptEndTime - perceptStartTime)
   }
+  trial_data[[length(trial_data)+1]] <- data.frame(key  = 0,
+                                                   onset = perceptStartTime,
+                                                   duration = perceptEndTime - perceptStartTime)
   return(trial_data)
 }
 # ---------------------------------------------------------------------------- #
