@@ -37,5 +37,5 @@ in the given experimental run.
 }
 \examples{
 \dontrun{
-replay_visualize_run(directory,expType,participant,3)}
+replay_visualize_run(directory,"Gratings",1,3)}
 }
