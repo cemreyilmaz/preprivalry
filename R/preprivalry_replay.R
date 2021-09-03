@@ -53,6 +53,7 @@ replay_visualize_run <- function(directory,expType,participant,session,plot_flag
   # extract percept keys
   percept_keys <- as.numeric(unlist(rivdata[["log"]][[4]][[1]]))
   # go trial-by-trial
+  k <- list()
   for(t in 1:length(exp)){
     trial      <- exp[t,]
     trial_key  <- preprivalry::extract_trialkey(exp_key,trial)
