@@ -77,8 +77,8 @@ replay_visualize_run <- function(directory,expType,participant,session,plot_flag
                               linenumber = (c(1:dim(trial_onsets)[1],1:dim(trial_onsets)[1]) + plot_resp$linenumber[length(plot_resp$linenumber)]),
                               id = c(trial_onsets[,2],trial_onsets[,2]))
       plot_stim$id[plot_stim$id == 0] <- "Transition"
-      plot_stim$id[plot_stim$id == -1] <- "LeftArrow"
-      plot_stim$id[plot_stim$id == 1] <- "RightArrow"
+      plot_stim$id[plot_stim$id == -1] <- "RightArrow"
+      plot_stim$id[plot_stim$id == 1] <- "LeftArrow"
       plot_stim$cat <- "Stimulus"
       # combine data for plot
       plot_data <- rbind(plot_resp,plot_stim)
