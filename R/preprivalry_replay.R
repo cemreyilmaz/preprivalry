@@ -51,7 +51,7 @@ replay_visualize_run <- function(directory,expType,participant,session,plot_flag
   # extract key events
   exp_key <- preprivalry::extract_key(rivdata)
   # extract percept keys
-  percept_keys <- as.numeric(unlist(rivdata[["log"]][[4]][[1]]))
+  percept_keys <- sort(as.numeric(unlist(rivdata[["log"]][[4]][[1]])))
   # go trial-by-trial
   k <- list()
   for(t in 1:length(exp)){
@@ -66,8 +66,8 @@ replay_visualize_run <- function(directory,expType,participant,session,plot_flag
                               linenumber = c(1:dim(trial_key)[1],1:dim(trial_key)[1]),
                               id = c(trial_key$idDown,trial_key$idDown))
       plot_resp$id[plot_resp$id == 0] <- "Transition"
-      plot_resp$id[plot_resp$id == 115] <- "LeftArrow"
-      plot_resp$id[plot_resp$id == 114] <- "RightArrow"
+      plot_resp$id[plot_resp$id == percept_keys[1]] <- "LeftArrow"
+      plot_resp$id[plot_resp$id == percept_keys[2]] <- "RightArrow"
       plot_resp$cat <- "Response"
       # prepare the data of stimulus
       plot_stim <- data.frame(time = unlist(c(trial_onsets[,1],
@@ -85,7 +85,7 @@ replay_visualize_run <- function(directory,expType,participant,session,plot_flag
       # let's plot
       k[[t]]<- ggplot2::ggplot(plot_data, ggplot2::aes(color = id)) +
         ggplot2::geom_line(ggplot2::aes(x = time, y = y, group = linenumber), size = 5) +
-        ggplot2::scale_color_manual(values=c('#3390FF','#FF5733', '#FFFC33', "33FF5E")) +
+        ggplot2::scale_color_manual(values=c('#3390FF','#FF5733', '#FFFC33', "33FF5E", "#FFFC22")) +
         ggplot2::labs(y = "")
     }
   }
