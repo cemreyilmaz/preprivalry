@@ -60,6 +60,11 @@ replay_visualize_run <- function(directory,expType,participant,session,plot_flag
     if(dim(trial_key)[1] > 1){ # if any key event was recorded
       trial_key  <- preprivalry::remove_irrelevant_keyevents(trial_key,percept_keys)
       trial_onsets <- percept_onsets[[t]][[1]]
+      # for some reason, the onset values are swapped for images and gratingimage
+      # conditions. if it changes, comment this action.
+      if(grepl("Images", expType, fixed=TRUE) || grepl("GratingImage", expType, fixed=TRUE)){
+        trial_onsets[,2] <- trial_onsets[,2] * (-1)
+      }
       # prepare the data of response
       plot_resp <- data.frame(time = (c(trial_key$timeDown,trial_key$timeUp) - trial$trialStartTime),
                               y = rep("Response",2*dim(trial_key)[1]),
@@ -85,7 +90,7 @@ replay_visualize_run <- function(directory,expType,participant,session,plot_flag
       # let's plot
       k[[t]]<- ggplot2::ggplot(plot_data, ggplot2::aes(color = id)) +
         ggplot2::geom_line(ggplot2::aes(x = time, y = y, group = linenumber), size = 5) +
-        ggplot2::scale_color_manual(values=c('#3390FF','#FF5733', '#FFFC33', "33FF5E", "#FFFC22")) +
+        ggplot2::scale_color_manual(values=c('#3390FF','#FF5733', '#FFFC33', "33FF5E")) +
         ggplot2::labs(y = "")
     }
   }
