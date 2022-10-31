@@ -1,42 +1,23 @@
 ---
-output: github_document
+title: "Preprocessing with Default Settings"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{default-preprocessing}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
 ---
-
-<!-- README.md is generated from README.Rmd. Please edit that file -->
 
 ```{r, include = FALSE}
 knitr::opts_chunk$set(
   collapse = TRUE,
-  comment = "#>",
-  fig.path = "man/figures/README-",
-  out.width = "100%"
+  comment = "#>"
 )
 ```
+## Basics 
+The data were collected on MATLAB environment in this project. Therefore, the 
+first thing to do is to reorganize the files and to get ready for the further steps.
 
-# preprivalry
-
-<!-- badges: start -->
-[![Travis build status](https://travis-ci.com/cemreyilmaz/preprivalry.svg?branch=master)](https://travis-ci.com/cemreyilmaz/preprivalry)
-<!-- badges: end -->
-
-The goal of preprivalry is the preprocessing of binocular rivalry data
-which were collected via PsychToolbox in MATLAB environment in the project by 
-NeuroVision research group in the University of Graz. A rivalry data-set can be 
-preprocessed by using this package if it is organized as required.
-
-## Installation
-
-You can install the released version of preprivalry from [CRAN](https://CRAN.R-project.org) with:
-
-``` r
-install.packages("preprivalry")
-```
-## Data structure
-
-Since our data were collected on MATLAB, this package includes some functions to
-reorganize the data.
-
-#### MATLAB data
+### MATLAB data structure
 
 Our .mat file includes a MATLAB structure named as log. Besides the other 
 variable, its forth component is a struct containing the key events and fifth 
@@ -58,6 +39,10 @@ raw_data
 
 We saved separate .mat files for each experimental run by naming the file as:
 ExperimentName_s###_session#_run#_date.mat
+
+```{r setup}
+library(preprivalry)
+```
 
 ## Example
 
@@ -89,31 +74,27 @@ data <- preprocessing_subject(directory,exp_list,subj,ses)
 data <- reorganize_as_table(data)
 ```
 
-Check the function file preprivalry_preprocessing_data.R to see more details and 
-to customize the work flow. 
+## First step of preprocessing
+First, read the data from a .mat file of a single run. `read_rivdata()` creates
+the file name and read the defined file. Then, extract the trial data. 
+`extract_exp()` 
 
-## Visualization
-After preprocessing, the data can be visualized to check the key events, percept
-duration, and eye dominance. There is a set of visualization functions in the
-package. One can use those functions to visualize the data in a specified trial,
-run, and/or session. 
+It reads only a part of data due to 
+compatibility issues. Therefore, concatanate the record of percept keys after
+reading the data. 
 
-### Example
-The input for the visualization functions is the same: data, session#, run#, 
-trial#. One can visualize the data for a run or a trial. Although one does not
-have to, we recommend to specify at least session and run since the output would
-be little messy and not useful for interpretation.
 
-```{r vis-example}
+```{r table-example}
 library(preprivalry)
-## basic example for preprocessing of subject data
-directory <- paste(getwd(), '/tests', sep='')
+## basic example for saving as csv
+directory <- paste(getwd(), '/tests',sep='')
+output_file <- paste(directory, '/data.csv', sep='')
 exp_list <- c('RivalryGratings','RivalryImages')
 subj <- 's001'
 ses <- 1
+raw_data <- read_rivdata(directory,exp_list[1],subj,'session1')
+percept_keys <- rbind(raw_data[["log"]][[4]][[1]],
+                      c(raw_data[["log"]][[4]][[2]][[1]][[1]],raw_data[["log"]][[4]][[2]][[2]][[1]]))
 data <- preprocessing_subject(directory,exp_list,subj,ses)
-plot_keyevents(data,1,1,1)
-plot_perceptdurations(data,1,1,1)
-hist_perceptdurations(data,1,1,1)
-bar_stats(data,1,1,1)
+data <- reorganize_as_table(data)
 ```
