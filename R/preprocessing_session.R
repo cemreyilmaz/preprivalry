@@ -34,7 +34,7 @@ preprocessing_session <- function(directory,expList,participant,session_no){
   for(expNo in 1:length(expList)){
     expType  <- expList[expNo]
     run_data <- preprivalry::preprocessing_run(directory,expType,participant,session)
-    run_data <- preprivalry::eye_dominance(run_data)
+    run_data <- preprivalry::eye_info(run_data)
     data[[expNo]] <- run_data
   }
   return(data)
