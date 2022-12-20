@@ -17,7 +17,7 @@
 #' \dontrun{
 #' key_data <- preprocessing_run(directory,expType,participant,session)
 #' output <- eye_dominance(key_data,c(1,2),c(1,2))}
-eye_dominance <- function(key_data,eye_trials,trial_sequence){
+eye_info <- function(key_data,eye_trials,trial_sequence){
   if(missing(eye_trials)){
     eye_trials <- c(1,2)
   }
