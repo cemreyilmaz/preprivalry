@@ -13,7 +13,7 @@
 #'
 #' @examples
 #' \dontrun{
-#' data <- table(id,timeDown,timeUp,duration)
+#' data  <- preprocessing_run(directory,exp_type,participant_id,session_no)
 #' stats <- descriptive_eye(data)
 #' }
 descriptive_eye <- function(data){

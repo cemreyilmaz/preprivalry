@@ -1,9 +1,10 @@
 # ---------------------------------------------------------------------------- #
-#' Adding eye info for each dominant percept
+#' Adding eye info for each trial
 #'
 #' This function defines which eye was being presented with the dominant percept
-#' for every data point. It assumes that the locations of two images were
-#' interchanged from one trial to another by default.
+#' for every data point. It creates a vector and add this vector carrying the eye
+#' info to the data that is given as input. It assumes that the locations of two
+#' images were interchanged from one trial to another by default.
 #'
 #' @param key_data list -- output of run preprocessing
 #' @param eye_trials numeric -- trial labels for different presentations
