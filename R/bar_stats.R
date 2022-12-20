@@ -100,5 +100,5 @@ bar_stats <- function(data,sessionNo,runNo,trialNo){
     ggplot2::labs(title='Total Eye', x=NULL, y='Duration (sec)') +
     ggplot2::theme(axis.text.x = ggplot2::element_text(angle = 90, vjust = 0.5, hjust=1))
   p <- ggpubr::ggarrange(k1,k2,k3,e1,e2,e3, ncol = 3, nrow = 2)
-  return(p)
+  p
 }
