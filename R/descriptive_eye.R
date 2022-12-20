@@ -28,31 +28,31 @@ descriptive_eye <- function(data){
     percept_eye <- c(percept_eye,eyes[k])
     curr_dur <- durations[data[["eye"]]==eyes[k]]
     eye_stat <- rbind(eye_stat,
-                      c(stats::median(curr_dur),stats::mad(curr_dur),
-                        mean(curr_dur),stats::sd(curr_dur),
-                        sum(curr_dur),length(curr_dur)))
+                      c(stats::median(na.omit(curr_dur)),stats::mad(na.omit(curr_dur)),
+                        mean(na.omit(curr_dur)),stats::sd(na.omit(curr_dur)),
+                        sum(na.omit(curr_dur)),length(na.omit(curr_dur))))
   }
   curr_dur <- durations[data[["id"]] > 0] # only dominant percepts
   eye_stat <- rbind(eye_stat,
-                    c(stats::median(curr_dur),stats::mad(curr_dur),
-                      mean(curr_dur),stats::sd(curr_dur),
-                      sum(curr_dur),length(curr_dur)))
+                    c(stats::median(na.omit(curr_dur)),stats::mad(na.omit(curr_dur)),
+                      mean(na.omit(curr_dur)),stats::sd(na.omit(curr_dur)),
+                      sum(na.omit(curr_dur)),length(na.omit(curr_dur))))
   if(is.element("eye_info",colnames(data))){# if there is eye info
     eyes <- unique(data[["eye_info"]])
     eyes <- eyes[eyes > 0]
     for(j in 1:length(eyes)){
       curr_dur <- durations[data[["eye_info"]] == eyes[j]]
       eye_stat <- rbind(eye_stat,
-                        c(stats::median(curr_dur),stats::mad(curr_dur),
-                          mean(curr_dur),stats::sd(curr_dur),
-                          sum(curr_dur),length(curr_dur)))
+                        c(stats::median(na.omit(curr_dur)),stats::mad(na.omit(curr_dur)),
+                          mean(na.omit(curr_dur)),stats::sd(na.omit(curr_dur)),
+                          sum(na.omit(curr_dur)),length(na.omit(curr_dur))))
     }
   }
   curr_dur <- durations # overall
   eye_stat <- rbind(eye_stat,
-                    c(stats::median(curr_dur),stats::mad(curr_dur),
-                      mean(curr_dur),stats::sd(curr_dur),
-                      sum(curr_dur),length(curr_dur)))
+                    c(stats::median(na.omit(curr_dur)),stats::mad(na.omit(curr_dur)),
+                      mean(na.omit(curr_dur)),stats::sd(na.omit(curr_dur)),
+                      sum(na.omit(curr_dur)),length(na.omit(curr_dur))))
   row_names_output <- c(paste('eye_',eyes,sep=''),'dominant_eyes')
   if(is.element("eye_info",colnames(data))){
     row_names_output <- c(row_names_output,paste('eye_',eyes,sep=''))
