@@ -53,6 +53,9 @@ rescale_replay_data <- function(directory,expType,participant,session){
     a <- c(a,(diff(percept_onsets[[i]][[1]][,1])))
   }
   d <- round(min(abs(a[!is.na(a)])), digits = 2)
+  if(d==0){
+    d <- round(min(abs(a[!is.na(a)])), digits = 3)
+  }
   # go trial-by-trial
   output <- data.frame()
   for(t in 1:length(exp)){
