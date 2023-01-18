@@ -9,7 +9,13 @@ the presented stimulus types throughout the corresponding trial in order to
 compare them. It results in a figure including the plots for each trial
 in the given experimental run.}
 \usage{
-replay_visualize_run(directory, expType, participant, session, plot_flag)
+replay_visualize_run(
+  directory,
+  expType,
+  participant,
+  session = 3,
+  plot_flag = 1
+)
 }
 \arguments{
 \item{directory}{character -- the directory that contains all the data}

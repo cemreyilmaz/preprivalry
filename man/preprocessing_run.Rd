@@ -30,7 +30,7 @@ is ready to be analyzed.
 See also:
 \link{read_rivdata} \link{extract_exp} \link{extract_key}
 \link{extract_trialkey} \link{clean_keyevents} \link{preprocessing_trial}
-\link{create_transitionkey} \link{reorganize_preptrial}
+\link{create_transitionkey}
 }
 \note{
 If the participant and/or session_no is given as a numeric variable,

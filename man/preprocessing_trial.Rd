@@ -4,12 +4,12 @@
 \alias{preprocessing_trial}
 \title{Preprocessing of key events in a trial}
 \usage{
-preprocessing_trial(trial_key, trial, percept_keys)
+preprocessing_trial(trial_key, zero_point, percept_keys)
 }
 \arguments{
 \item{trial_key}{data.frame -- contains the key-events in given trial}
 
-\item{trial}{data.frame -- contains trial info}
+\item{zero_point}{numeric -- time stamp of the start time}
 
 \item{percept_keys}{matrix -- contains the keycodes for each percept}
 }
@@ -22,6 +22,6 @@ See also \link{extract_trialkey}
 }
 \examples{
 \dontrun{
-preprocessing_trial(trial_key,trial,percept_keys)
+preprocessing_trial(trial_key,zero_point,percept_keys)
 }
 }

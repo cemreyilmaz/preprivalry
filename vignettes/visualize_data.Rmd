@@ -23,7 +23,7 @@ After preprocessing, the data can be visualized to check the key events, percept
 ### Example
 The input for the visualization functions is the same: data, session#, run#, trial#. One can visualize the data for a run or a trial. Although one does not have to, we recommend to specify at least session and run since the output would be little messy and not useful for interpretation.
 
-```{r vis-example}
+```
 ## basic example for preprocessing of subject data
 directory <- "C:/Users/user/Documents/transriv/data"
 experiments <- c("Gratings","Images","Dots")
