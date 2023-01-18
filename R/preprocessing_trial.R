@@ -5,7 +5,7 @@
 #' See also \link{extract_trialkey}
 #'
 #' @param trial_key data.frame -- contains the key-events in given trial
-#' @param trial data.frame -- contains trial info
+#' @param zero_point numeric -- time stamp of the start time
 #' @param percept_keys matrix -- contains the keycodes for each percept
 #'
 #' @return list -- contains the onset and duration info for each percept by keycode
@@ -13,9 +13,9 @@
 #'
 #' @examples
 #' \dontrun{
-#' preprocessing_trial(trial_key,trial,percept_keys)
+#' preprocessing_trial(trial_key,zero_point,percept_keys)
 #' }
-preprocessing_trial <- function(trial_key,trial,percept_keys){
+preprocessing_trial <- function(trial_key,zero_point,percept_keys){
   trial_data <- list()
   percept_keys <- as.matrix(unlist(unique(trial_key['idDown'])))
   for(p in 1:length(percept_keys)){
@@ -25,7 +25,7 @@ preprocessing_trial <- function(trial_key,trial,percept_keys){
     perceptEndTime   <- trial_key[trial_key['idUp']==theKey,]
     perceptEndTime   <- perceptEndTime$timeUp
     trial_data[[p]]  <- data.frame(key  = theKey,
-                                   onset = perceptStartTime - as.numeric(unlist(trial[1])),
+                                   onset = perceptStartTime - zero_point,
                                    duration = c(perceptEndTime - perceptStartTime))
   }
   return(trial_data)

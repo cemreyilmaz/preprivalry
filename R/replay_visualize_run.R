@@ -20,16 +20,13 @@
 #' @examples
 #' \dontrun{
 #' replay_visualize_run(directory,"Gratings",1,3)}
-replay_visualize_run <- function(directory,expType,participant,session,plot_flag){
+replay_visualize_run <- function(directory,expType,participant,session=3,plot_flag=1){
   # check inputs
   if(is.numeric(participant)){
     participant <- paste('s',sprintf('%03d', participant),sep = '')
   }
   if(is.numeric(session)){
     session <- paste('session', session, sep = '')
-  }
-  if(missing(plot_flag)){
-    plot_flag <- 1
   }
   # read data
   rivdata <- preprivalry::read_rivdata(directory,expType,participant,session)

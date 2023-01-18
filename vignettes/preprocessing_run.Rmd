@@ -1,0 +1,81 @@
+---
+title: "Preprocessing of a Run"
+author: "Cemre Yilmaz"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{preprocessing_run}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+```{r setup}
+library(preprivalry)
+```
+
+After importing the data from a .mat file, we have a list containing all the information about the given run. Now, we need to do preprocessing.
+
+First, we extract the basic info and create a data.frame such that:
+```
+trial_info
+  --trialStartTime (tx2 matrix)
+  --trialEndTime   (tx2 matrix)
+```
+where t is the number of trials by using **extract_exp()**. Then, we create a list containing the key events during the given run. We use **extract_key()** and the output is a data.frame like that:
+```
+key
+  --nameKeyRelease
+  --idKeyRelease
+  --timeKeyRelease
+  --nameKeyPress
+  --idKeyPress
+  --timeKeyPress
+```
+Since we preprocess the data trial by trial, we use **extract_trialkey()** to get the key events during the given trial. Then, we remove the key events other than the perceptual reports (**remove_irrelevant_keyevents()**) followed by cleaning the key events (**clean_keyevents()**) including: 
+    removal of first event 
+        if key release comes before first key press
+        if key release and key press are not of the same percept at the beginning
+   removal of last key press if last key press comes after last key release
+   removal of last key event if key release and key press are not of the same percept at the end
+   correct any mismatch between key releases and key presses
+
+After that, **preprocessing_trial()** organizes the data and **create_transitionkey()** creates the timing info of transitions for further analysis. 
+
+If there is no key events were recorded during the given trial, **create_nan_trialdata()** creates same data.frame with nans. 
+
+All these preprocessing steps will be performed for a run by **preprocessing_run()** function. As a final step, we add the info for dominant eye. **eye_info()** adds the dominant eye as a new field to the data.
+```
+directory <- "C:/Users/user/Documents/transriv/data"
+data <- preprivalry::preprocessing_run(directory,"Gratings","s001",1)
+data <- preprivalry::eye_info(data)
+```
+The output *data* is a list of t where t is the number of trial and it can be used for rivalry analysis. data[[1]] contains:
+```
+[[1]]
+key      onset  duration eye_info
+1  114   1.162899 0.3310041  LeftEye
+2  114   1.895124 0.5519462  LeftEye
+3  114  15.766431 1.5391910  LeftEye
+4  114  27.086890 0.5599580  LeftEye
+5  114  28.669384 1.1711040  LeftEye
+[[2]]
+   key      onset  duration eye_info
+1  115   2.544327 3.5148580 RightEye
+2  115   9.689404 1.4323411 RightEye
+3  115  18.252046 3.9681058 RightEye
+4  115  30.097682 0.4350162 RightEye
+5  115  31.141015 1.1522470 RightEye
+[[3]]
+   key      onset   duration   eye_info
+1    0   1.493904 0.40122080 Transition
+2    0   2.447071 0.09725595 Transition
+3    0   6.059185 3.63021994 Transition
+4    0  11.121746 4.64468503 Transition
+5    0  17.305622 0.94642401 Transition
+```

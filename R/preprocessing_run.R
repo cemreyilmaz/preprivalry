@@ -10,7 +10,7 @@
 #' See also:
 #' \link{read_rivdata} \link{extract_exp} \link{extract_key}
 #' \link{extract_trialkey} \link{clean_keyevents} \link{preprocessing_trial}
-#' \link{create_transitionkey} \link{reorganize_preptrial}
+#' \link{create_transitionkey}
 #'
 #' @note If the participant and/or session_no is given as a numeric variable,
 #'     the function adds to the beginning of participant code a letter 's' and
@@ -48,7 +48,7 @@ preprocessing_run <- function(directory,expType,participant,session){
     if(dim(trial_key)[1] > 1){
       trial_key  <- preprivalry::remove_irrelevant_keyevents(trial_key,percept_keys)
       trial_key  <- preprivalry::clean_keyevents(trial_key,2)
-      d <- preprivalry::preprocessing_trial(trial_key,trial,percept_keys)
+      d <- preprivalry::preprocessing_trial(trial_key,as.numeric(exp[1,1]),percept_keys)
       d[[length(d)+1]] <- preprivalry::create_transitionkey(trial_key,trial)
       key_data[[t]]    <- d
     }

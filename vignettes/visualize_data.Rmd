@@ -1,0 +1,46 @@
+---
+title: "Visualize Rivalry Data"
+author: "Cemre Yilmaz"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{visualize_data}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+```{r setup}
+library(preprivalry)
+```
+After preprocessing, the data can be visualized to check the key events, percept duration, and eye dominance. There is a set of visualization functions in the package. One can use those functions to visualize the data in a specified trial, run, and/or session. 
+
+### Example
+The input for the visualization functions is the same: data, session#, run#, trial#. One can visualize the data for a run or a trial. Although one does not have to, we recommend to specify at least session and run since the output would be little messy and not useful for interpretation.
+
+```{r vis-example}
+## basic example for preprocessing of subject data
+directory <- "C:/Users/user/Documents/transriv/data"
+experiments <- c("Gratings","Images","Dots")
+subject <- "s001"
+session <- 1
+run <- 1
+trial <- 1
+data <- preprocessing_subject(directory,experiments,subject,session)
+plot_keyevents(data,session,run,trial)
+plot_perceptdurations(data,session,run,trial)
+hist_perceptdurations(data,session,run,trial)
+bar_stats(data,session,run,trial)
+```
+
+## Visualıze Responses in Replay Session
+We perfomred the last session as immitation of rivalry based on the participant's report in the first session. This replay session is used to check the response reliability of participants. Other than correlational check, it is possible to visually compare the participant's response and the actual presentation.
+```
+directory <- "C:/Users/user/Documents/transriv/data"
+replay_visualize_run(directory,"Gratings","s001")
+```

@@ -18,42 +18,52 @@ knitr::opts_chunk$set(
 ```{r setup}
 library(preprivalry)
 ```
+
+
+Since our data were collected on MATLAB, the package **preprivalry** includes some functions to reorganize the data.
+
 # Data structure
 
-Since our data were collected on MATLAB, this package includes some functions to
-reorganize the data.
-
-## MATLAB data
-
-Our .mat file includes a MATLAB structure named as "log". Besides the other 
-variables, its forth component is a struct containing the key events and fifth 
-component is a struct containing the experiment info, as the following:
+Our .mat file includes a MATLAB structure named as "log". Besides the other variables, its forth component is a struct containing the key events and fifth component is a struct containing the experiment info, as the following:
 
 ```
-raw_data
-  --raw_data.key
-    --raw_data.key.perceptKeys  # key codes of instructed keys  [key_1, key_2]
-    --raw_data.key.perceptNames # key names of instructed keys  {key_1, key_2}
-    --raw_data.key.idDown       # key codes of pressed keys     [nx1 double]
-    --raw_data.key.timeDown     # time points for pressed keys  [nx1 double]
-    --raw_data.key.idUp         # key codes of released keys    [nx1 double]
-    --raw_data.key.timeUp       # time points for released keys [nx1 double]
-  --raw_data.exp
-    --raw_data.exp.trialStartTime # [trial_1, trial_2]
-    --raw_data.exp.trialEndTime   # [trial_1, trial_2]
+log
+  --log.key
+    --log.key.perceptKeys  # key codes of instructed keys  [key_1, key_2]
+    --log.key.perceptNames # key names of instructed keys  {key_1, key_2}
+    --log.key.idDown       # key codes of pressed keys     [nx1 double]
+    --log.key.timeDown     # time points for pressed keys  [nx1 double]
+    --log.key.idUp         # key codes of released keys    [nx1 double]
+    --log.key.timeUp       # time points for released keys [nx1 double]
+  --log.exp
+    --log.exp.trialStartTime # [trial_1, trial_2]
+    --log.exp.trialEndTime   # [trial_1, trial_2]
 ```
-
-We saved separate .mat files for each experimental run by naming the file as:
-ExperimentName_s###_session#_run#_date.mat
 
 ## Import the data from a .mat file
-One can import the data by using read_rivdata() function. First, it checks if 
-the file exists. If it exits, it creates the full path of it and read it. If an 
-error comes up, it warns the user.
+One can import the data by using **read_rivdata()** function.
+
+We saved separate .mat files for each experimental run by naming the file as: ExperimentName_s###_session#_run#_date.mat. Therefore, the function first creates the full path. Then, it checks if the file exists. If it exits, the function reads it. If an error comes up, it warns the user.
 
 
 ```
 directory <- "C:/Users/user/Documents/transriv/data"
-data <- preprivalry::read_rivdata(directory,"Gratings","s001",1)
+data <- preprivalry::read_rivdata(directory,"Gratings","s001",s)
 
 ```
+data is a list containing all the info about the experiment such that:
+
+```
+data
+ --design
+ --elapsedTime
+ --log
+ --mainfold
+ --possibleExpStr
+ --ptb
+ --stimulus
+ --trials
+ --varargin
+ --whichExperiment
+ ```
+Our interest will be on data[["list"]] for the further steps.
