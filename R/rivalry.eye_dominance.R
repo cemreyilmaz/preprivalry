@@ -15,7 +15,7 @@
 #' }
 rivalry.eye_dominance <- function(data){
   stat_eye  <- preprivalry::descriptive_eye(data)
-  stat_eye  <- curr_descriptives[order(row.names(stat_eye)),]
+  stat_eye  <- stat_eye[order(row.names(stat_eye)),]
   dominance <- stat_eye[2,1]/(stat_eye[2,1]+stat_eye[3,1])
   return(dominance)
 }
