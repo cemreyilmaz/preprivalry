@@ -17,7 +17,9 @@ knitr::opts_chunk$set(
 ```{r setup}
 library(preprivalry)
 ```
-If the participants have a strong eye dominance or they responded ver unreliably, their data are misleading for our purposes. Therefore, we exclude such cases. 
+If the participants have a strong eye dominance or they responded very unreliably, their data are misleading for our purposes. Therefore, we exclude such cases. 
+
+##Eye dominance
 
 We calculate eye dominance by ```rivalry.eye.dominance()``` just after the first session, and if the value is higher than 0.8, we stop the experiments with that subject. 
 
@@ -27,5 +29,7 @@ directory <- paste0(getwd(),"/data") # the folder which contains the data
 session   <- 1
 data      <- preprocessing_subject(directory,c("Gratings","Images","GratingImage"),"s001",session)
 data      <- reorganize_as_table(data)
-
+rivalry.eye_dominance(data)
 ```
+
+
