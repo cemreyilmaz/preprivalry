@@ -1,7 +1,0 @@
-This dataset has been created by using the real data recruited during the project TRANSRIV. 
-
-They are the raw data and debugged manually if there is any missing key events.
-
-Please note that the subject IDs and the run numbers are faked to keep the data even more confidential.
-
-author: Cemre Yilmaz, 19/Jan/2023
