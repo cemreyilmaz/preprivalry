@@ -14,8 +14,8 @@
 #'
 #' @examples
 #' \dontrun{
-#' key <- extract_key(riv_data('~/preprivalry/tests','RivalryGratings','s001','session1'))
-#' exp <- extract_exp(riv_data('~/preprivalry/tests','RivalryGratings','s001','session1'))
+#' key <- extract_key(read_rivdata('~/preprivalry/tests','RivalryGratings','s001','session1'))
+#' exp <- extract_exp(read_rivdata('~/preprivalry/tests','RivalryGratings','s001','session1'))
 #' key <- extract_trialkey(key,exp[1,])
 #' }
 extract_trialkey <- function(key,trial){

@@ -15,7 +15,7 @@ Suggests:
     devtools,
     knitr,
     rmarkdown,
-    testthat,
+    testthat (>= 3.0.0),
     roxygen2
 VignetteBuilder: knitr
 Imports: R.matlab,
@@ -28,3 +28,4 @@ Imports: R.matlab,
 URL: https://github.com/cemreyilmaz/preprivalry
 BugReports: https://github.com/cemreyilmaz/preprivalry/issues
 RoxygenNote: 7.2.3
+Config/testthat/edition: 3

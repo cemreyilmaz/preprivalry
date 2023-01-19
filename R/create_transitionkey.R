@@ -13,7 +13,7 @@
 #'     as a new field in key list or as a new variable.
 #'
 #' @param key data.frame -- contains the preprocessed key-events in a trial
-#' @param trial matrix -- contains trial info
+#' @param zero_point numeric -- time stamp of the start time
 #'
 #' @return data.frame -- contains the onset and duration of each transition
 #'     period with a label of key-code 0
@@ -24,9 +24,9 @@
 #' \dontrun{
 #' create_transitionkey(trial_key)
 #' }
-create_transitionkey <- function(key,trial){
+create_transitionkey <- function(key,zero_point){
   data <- data.frame(key   = 0,
-                     onset = key$timeUp[1:(length(key$timeUp)-1)] - as.numeric(unlist(trial[1])),
+                     onset = key$timeUp[1:(length(key$timeUp)-1)] - zero_point),
                      duration = key$timeDown[2:length(key$timeDown)] - key$timeUp[1:(length(key$timeUp)-1)])
 }
 # ---------------------------------------------------------------------------- #

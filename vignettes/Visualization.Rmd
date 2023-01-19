@@ -1,5 +1,5 @@
 ---
-title: "Visualize Rivalry Data"
+title: "Visualization"
 author: "Cemre Yilmaz"
 output: rmarkdown::html_vignette
 vignette: >
@@ -18,9 +18,9 @@ knitr::opts_chunk$set(
 ```{r setup}
 library(preprivalry)
 ```
-After preprocessing, the data can be visualized to check the key events, percept duration, and eye dominance. There is a set of visualization functions in the package. One can use those functions to visualize the data in a specified trial, run, and/or session. 
+After preprocessing, the data can be visualized to check the subjects' response, rivalry parameters, and eye dominance. There is a set of visualization functions in the package. One can use those functions to visualize the data in a specified trial, run, and/or session. 
 
-### Example
+## Visualize Rivalry Session
 The input for the visualization functions is the same: data, session#, run#, trial#. One can visualize the data for a run or a trial. Although one does not have to, we recommend to specify at least session and run since the output would be little messy and not useful for interpretation.
 
 ```{r visualize rivalry, fig.height = 3, fig.width = 6, fig.align = "center"}

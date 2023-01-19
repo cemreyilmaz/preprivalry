@@ -13,7 +13,7 @@
 #'
 #' @examples
 #' \dontrun{
-#' key <- extract_key(riv_data('~/preprivalry/tests','RivalryGratings','s001','session1'))
+#' key <- extract_key(read_rivdata('~/preprivalry/tests','RivalryGratings','s001','session1'))
 #' }
 extract_key <- function(rivdata){
   pKeys      <- rivdata[["log"]][[4]][[1]]

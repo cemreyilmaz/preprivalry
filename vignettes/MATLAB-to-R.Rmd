@@ -22,7 +22,7 @@ library(preprivalry)
 
 Since our data were collected on MATLAB, the package **preprivalry** includes some functions to reorganize the data.
 
-# Data structure
+## Data structure
 
 Our .mat file includes a MATLAB structure named as "log". Besides the other variables, its forth component is a struct containing the key events and fifth component is a struct containing the experiment info, as the following:
 
