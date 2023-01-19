@@ -26,7 +26,7 @@
 #' }
 create_transitionkey <- function(key,zero_point){
   data <- data.frame(key   = 0,
-                     onset = key$timeUp[1:(length(key$timeUp)-1)] - zero_point),
+                     onset = key$timeUp[1:(length(key$timeUp)-1)] - zero_point,
                      duration = key$timeDown[2:length(key$timeDown)] - key$timeUp[1:(length(key$timeUp)-1)])
 }
 # ---------------------------------------------------------------------------- #
