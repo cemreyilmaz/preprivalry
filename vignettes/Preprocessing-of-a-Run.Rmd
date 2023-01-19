@@ -1,0 +1,59 @@
+---
+title: "Preprocessing of a Run"
+author: "Cemre Yilmaz"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{preprocessing_run}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+```{r setup}
+library(preprivalry)
+```
+
+After importing the data from a .mat file, we have a list containing all the information about the given run. Now, we need to do preprocessing.
+
+First, we extract the basic info and create a data.frame such that:
+```
+trial_info
+  --trialStartTime (tx2 matrix)
+  --trialEndTime   (tx2 matrix)
+```
+where t is the number of trials by using ```extract_exp()```. Then, we create a list containing the key events during the given run. We use ```extract_key()``` and the output is a data.frame like that:
+```
+key
+  --nameKeyRelease
+  --idKeyRelease
+  --timeKeyRelease
+  --nameKeyPress
+  --idKeyPress
+  --timeKeyPress
+```
+Since we preprocess the data trial by trial, we use ```extract_trialkey()``` to get the key events during the given trial. Then, we remove the key events other than the perceptual reports (```remove_irrelevant_keyevents()```) followed by cleaning the key events (```clean_keyevents()```) including: 
+    removal of first event 
+        if key release comes before first key press
+        if key release and key press are not of the same percept at the beginning
+   removal of last key press if last key press comes after last key release
+   removal of last key event if key release and key press are not of the same percept at the end
+   correct any mismatch between key releases and key presses
+
+After that, ```preprocessing_trial()``` organizes the data and ```create_transitionkey()``` creates the timing info of transitions for further analysis. 
+
+If there is no key events were recorded during the given trial, ```create_nan_trialdata()``` creates same data.frame with nans. 
+
+All these preprocessing steps will be performed for a run by ```preprocessing_run()``` function. As a final step, we add the info for dominant eye. ```eye_info()``` adds the dominant eye as a new field to the data.
+```{r preprocessingrun}
+setwd("..")
+directory <- paste0(getwd(),"/data") # the folder which contains the data
+data <- preprivalry::preprocessing_run(directory,"Gratings","s001",1)
+data <- preprivalry::eye_info(data)
+head(data,1) # data of trial 1
+```

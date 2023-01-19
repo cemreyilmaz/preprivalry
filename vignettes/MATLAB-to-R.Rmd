@@ -41,29 +41,18 @@ log
 ```
 
 ## Import the data from a .mat file
-One can import the data by using **read_rivdata()** function.
+One can import the data by using ```read_rivdata()``` function.
 
 We saved separate .mat files for each experimental run by naming the file as: ExperimentName_s###_session#_run#_date.mat. Therefore, the function first creates the full path. Then, it checks if the file exists. If it exits, the function reads it. If an error comes up, it warns the user.
 
 
-```
-directory <- "C:/Users/user/Documents/transriv/data"
-data <- preprivalry::read_rivdata(directory,"Gratings","s001",s)
+```{r importingData}
+setwd("..")
+directory <- paste0(getwd(),"/data") # the folder which contains the data
+s         <- 1 # session number 
+data      <- read_rivdata(directory,"Gratings","s001",s)
+summary(data)
 
 ```
-data is a list containing all the info about the experiment such that:
 
-```
-data
- --design
- --elapsedTime
- --log
- --mainfold
- --possibleExpStr
- --ptb
- --stimulus
- --trials
- --varargin
- --whichExperiment
- ```
-Our interest will be on data[["list"]] for the further steps.
+Our interest will be on ```data[["log"]]``` for the further steps.
