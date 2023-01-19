@@ -27,4 +27,4 @@ Imports: R.matlab,
     data.table
 URL: https://github.com/cemreyilmaz/preprivalry
 BugReports: https://github.com/cemreyilmaz/preprivalry/issues
-RoxygenNote: 7.2.1
+RoxygenNote: 7.2.3

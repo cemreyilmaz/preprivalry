@@ -9,7 +9,7 @@
 #' @param trialNo numeric -- the trial of which data you want to visual.
 #'
 #' @import ggplot2 ggpubr
-#' @return
+#' @return NULL
 #' @export
 #'
 #' @examples

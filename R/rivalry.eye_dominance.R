@@ -9,7 +9,7 @@
 #' @return numeric -- eye dominance as percentage
 #' @export
 #'
-#' @example \dontrun{
+#' @examples \dontrun{
 #' data  <- preprocessing_run(directory,exp_type,participant_id,session_no)
 #' dominance <- rivalry.eye.dominance(data)
 #' }

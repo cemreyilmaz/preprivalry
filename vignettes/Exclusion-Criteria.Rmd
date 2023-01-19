@@ -27,6 +27,5 @@ directory <- paste0(getwd(),"/data") # the folder which contains the data
 session   <- 1
 data      <- preprocessing_subject(directory,c("Gratings","Images","GratingImage"),"s001",session)
 data      <- reorganize_as_table(data)
-rivalry.eye_dominance(data)
 
 ```
