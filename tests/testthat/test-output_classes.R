@@ -14,11 +14,11 @@ runs        <- 1:3
 
 test_that("clean_keyevents returns a data.frame", {expect_true(is.data.frame(
   clean_keyevents(data.frame(idUp = c(114,114,114,115,115),
-                      timeUp = c(0.1,0.13,0.18,0.3,0.5,0.51),
-                      nameUp = c("RightArrow","RightArrow","RightArrow","LeftArrow","LeftArrow","LeftArrow"),
+                      timeUp = c(0.1,0.13,0.18,0.3,0.5),
+                      nameUp = c("RightArrow","RightArrow","RightArrow","LeftArrow","LeftArrow"),
                       idDown = c(114,114,114,115,115),
-                      timeDown = c(0,0.11,0.16,0.25,0.45,0.48),
-                      nameDown = c("RightArrow","RightArrow","RightArrow","LeftArrow","LeftArrow","LeftArrow")),
+                      timeDown = c(0,0.11,0.16,0.25,0.45),
+                      nameDown = c("RightArrow","RightArrow","RightArrow","LeftArrow","LeftArrow")),
     2)
 ))})
 
@@ -29,20 +29,20 @@ test_that("create_nan_trial_data returns a list", {expect_true(is.list(
 
 test_that("create_transitionkey returns a data.frame", {expect_true(is.data.frame(
   create_transitionkey(data.frame(idUp = c(114,114,114,115,115),
-                                  timeUp = c(0.1,0.13,0.18,0.3,0.5,0.51),
-                                  nameUp = c("RightArrow","RightArrow","RightArrow","LeftArrow","LeftArrow","LeftArrow"),
+                                  timeUp = c(0.1,0.13,0.18,0.3,0.5),
+                                  nameUp = c("RightArrow","RightArrow","RightArrow","LeftArrow","LeftArrow"),
                                   idDown = c(114,114,114,115,115),
-                                  timeDown = c(0,0.11,0.16,0.25,0.45,0.48),
-                                  nameDown = c("RightArrow","RightArrow","RightArrow","LeftArrow","LeftArrow","LeftArrow")))
+                                  timeDown = c(0,0.11,0.16,0.25,0.45),
+                                  nameDown = c("RightArrow","RightArrow","RightArrow","LeftArrow","LeftArrow"))), zero_point  = 0
 
 ))})
 
-test_that("decriptive_eye returns matrix", {expect_true(is.matrix(
-  decriptive_eye(preprocessing_run(directory,experiments[1],subjects[1],sessions[1]))
+test_that("descriptive_eye returns matrix", {expect_true(is.matrix(
+  descriptive_eye(preprocessing_run(directory,experiments[1],subjects[1],sessions[1]))
 ))})
 
-test_that("decriptive_trial returns matrix", {expect_true(is.matrix(
-  decriptive_trial(preprocessing_run(directory,experiments[1],subjects[1],sessions[1]))
+test_that("descriptive_trial returns matrix", {expect_true(is.matrix(
+  descriptive_trial(preprocessing_run(directory,experiments[1],subjects[1],sessions[1]))
 ))})
 
 test_that("extract_exp returns data.frame", {expect_true(is.data.frame(
@@ -80,12 +80,12 @@ test_that("read_riv returns a list", {
 })
 
 test_that("remove_irrelevant_keyevents returns data.frame", {expect_true(is.data.frame(
-  remove_irrelevant_keyevents(data.frame(idUp = c(114,114,120,115,115),
-                                         timeUp = c(0.1,0.13,0.18,0.3,0.5,0.51),
-                                         nameUp = c("RightArrow","RightArrow","RightArrow","LeftArrow","LeftArrow","LeftArrow"),
-                                         idDown = c(114,114,120,115,115),
-                                         timeDown = c(0,0.11,0.16,0.25,0.45,0.48),
-                                         nameDown = c("RightArrow","RightArrow","RightArrow","LeftArrow","LeftArrow","LeftArrow")),
+  remove_irrelevant_keyevents(data.frame(idUp = c(114,114,114,115,115),
+                                         timeUp = c(0.1,0.13,0.18,0.3,0.5),
+                                         nameUp = c("RightArrow","RightArrow","RightArrow","LeftArrow","LeftArrow"),
+                                         idDown = c(114,114,114,115,115),
+                                         timeDown = c(0,0.11,0.16,0.25,0.45),
+                                         nameDown = c("RightArrow","RightArrow","RightArrow","LeftArrow","LeftArrow")),
                               c(114,115))
 ))})
 
