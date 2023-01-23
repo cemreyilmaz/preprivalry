@@ -32,7 +32,7 @@ rescale_replay_data <- function(directory,expType,participant,session){
     session <- paste('session', session, sep = '')
   }
   # read data
-  rivdata <- preprivalry::read_rivdata(directory,expType,participant,session)
+  rivdata <- read_rivdata(directory,expType,participant,session)
   # extract stimulus info
   a <- rivdata[['stimulus']][[length(rivdata[['stimulus']])]]
   if(grepl("Dots", expType, fixed=TRUE)){
@@ -43,9 +43,9 @@ rescale_replay_data <- function(directory,expType,participant,session){
     percept_onsets <- a[[length(a)-1]]
   }
   # extract exp info
-  exp     <- preprivalry::extract_exp(rivdata)
+  exp     <- extract_exp(rivdata)
   # extract key events
-  exp_key <- preprivalry::extract_key(rivdata)
+  exp_key <- extract_key(rivdata)
   # extract percept keys
   percept_keys <- as.numeric(unlist(rivdata[["log"]][[4]][[1]]))
   a <- exp_key$timeDown-exp_key$timeUp
@@ -60,9 +60,9 @@ rescale_replay_data <- function(directory,expType,participant,session){
   output <- data.frame()
   for(t in 1:length(exp)){
     trial      <- exp[t,]
-    trial_key  <- preprivalry::extract_trialkey(exp_key,trial)
+    trial_key  <- extract_trialkey(exp_key,trial)
     if(dim(trial_key)[1] > 1){ # if any key event was recorded
-      trial_key     <- preprivalry::remove_irrelevant_keyevents(trial_key,percept_keys)
+      trial_key     <- remove_irrelevant_keyevents(trial_key,percept_keys)
       trial_onsets  <- percept_onsets[[t]][[1]]
       trial_onsets[trial_onsets[,2] == -1,2] <- 115
       trial_onsets[trial_onsets[,2] == 1,2]  <- 114

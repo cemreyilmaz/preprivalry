@@ -19,6 +19,6 @@ of trials.
 }
 \examples{
 \dontrun{
-exp <- extract_exp(riv_data('~/preprivalry/tests','RivalryGratings','s001','session1'))
+exp <- extract_exp(read_rivdata('~/preprivalry/tests','RivalryGratings','s001','session1'))
 }
 }

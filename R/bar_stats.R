@@ -8,7 +8,7 @@
 #' @param runNo numeric -- the experimental run of which data you want to visual.
 #' @param trialNo numeric -- the trial of which data you want to visual.
 #'
-#' @import ggplot2 ggpubr
+#' @import ggplot2 ggpubr dplyr
 #' @return NULL
 #' @export
 #'

@@ -24,7 +24,8 @@ Imports: R.matlab,
     ggplot2,
     ggpubr,
     graphics,
-    data.table
+    data.table,
+    utils
 URL: https://github.com/cemreyilmaz/preprivalry
 BugReports: https://github.com/cemreyilmaz/preprivalry/issues
 RoxygenNote: 7.2.3

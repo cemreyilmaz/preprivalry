@@ -4,12 +4,12 @@
 \alias{create_transitionkey}
 \title{Creating key events for transition phase}
 \usage{
-create_transitionkey(key, trial)
+create_transitionkey(key, zero_point)
 }
 \arguments{
 \item{key}{data.frame -- contains the preprocessed key-events in a trial}
 
-\item{trial}{matrix -- contains trial info}
+\item{zero_point}{numeric -- time stamp of the start time}
 }
 \value{
 data.frame -- contains the onset and duration of each transition

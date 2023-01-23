@@ -41,7 +41,7 @@ hist_perceptdurations <- function(data,sessionNo,runNo,trialNo){
   # plot the filtered data
   y <- unique(as.numeric(unlist(data['id'])))
   colors = c('red','black','blue')
-  par(mfrow=c(1,3)) # set the plotting area into a 1*3 array
+  p <- par(mfrow=c(1,3)) # set the plotting area into a 1*3 array
   for(i in 1:3){
     x <- dplyr::filter(data, id==y[i])
     x <- dplyr::filter(data, duration <= 8)
@@ -53,5 +53,6 @@ hist_perceptdurations <- function(data,sessionNo,runNo,trialNo){
                    col=colors[i],
                    freq=FALSE)
   }
+  return(p)
 }
 # ---------------------------------------------------------------------------- #

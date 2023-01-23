@@ -14,6 +14,8 @@
 #'     the format of 'session1'
 #' @param plot_flag logical -- plot or not the resulting graph
 #'
+#' @import ggplot2
+#'
 #' @return ggplot
 #' @export
 #'

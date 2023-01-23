@@ -8,8 +8,8 @@
 #' @param runNo numeric -- the experimental run of which data you want to visual.
 #' @param trialNo numeric -- the trial of which data you want to visual.
 #'
-#' @import graphics
-#' @return nothing
+#' @import graphics dplyr
+#' @return ggplot
 #' @export
 #'
 #' @examples
@@ -18,7 +18,7 @@
 #' plot_perceptdurations(data,sessionNo,runNo,trialNo)}
 plot_perceptdurations <- function(data,sessionNo,runNo,trialNo){
   if(!is.data.frame(data)){
-    data <- preprivalry::reorganize_as_table(data)
+    data <- reorganize_as_table(data)
   }
   # filter the data by the given parameters
   if(!missing(sessionNo)){
@@ -61,7 +61,8 @@ plot_perceptdurations <- function(data,sessionNo,runNo,trialNo){
   }
   # rename yticks
   axis(side=2, at=1:3, labels = FALSE)
-  graphics::text(y=1:length(y),par('usr')[3],labels = paste(y,'   '),
+  p <- graphics::text(y=1:length(y),par('usr')[3],labels = paste(y,'   '),
                  pos = 2, srt=30, xpd = TRUE)
+  return(p)
 }
 # ---------------------------------------------------------------------------- #

@@ -37,23 +37,23 @@ preprocessing_run <- function(directory,expType,participant,session){
   if(is.numeric(session)){
     session <- paste('session', session, sep = '')
   }
-  rivdata <- preprivalry::read_rivdata(directory,expType,participant,session)
-  exp     <- preprivalry::extract_exp(rivdata)
-  exp_key <- preprivalry::extract_key(rivdata)
+  rivdata <- read_rivdata(directory,expType,participant,session)
+  exp     <- extract_exp(rivdata)
+  exp_key <- extract_key(rivdata)
   percept_keys <- as.numeric(unlist(rivdata[["log"]][[4]][[1]]))
   key_data     <- list()
   for(t in 1:length(exp)){
     trial      <- exp[t,]
-    trial_key  <- preprivalry::extract_trialkey(exp_key,trial)
+    trial_key  <- extract_trialkey(exp_key,trial)
     if(dim(trial_key)[1] > 1){
-      trial_key  <- preprivalry::remove_irrelevant_keyevents(trial_key,percept_keys)
-      trial_key  <- preprivalry::clean_keyevents(trial_key,2)
-      d <- preprivalry::preprocessing_trial(trial_key,as.numeric(exp[1,1]),percept_keys)
-      d[[length(d)+1]] <- preprivalry::create_transitionkey(trial_key,as.numeric(exp[1,1]))
+      trial_key  <- remove_irrelevant_keyevents(trial_key,percept_keys)
+      trial_key  <- clean_keyevents(trial_key,2)
+      d <- preprocessing_trial(trial_key,as.numeric(exp[1,1]),percept_keys)
+      d[[length(d)+1]] <- create_transitionkey(trial_key,as.numeric(exp[1,1]))
       key_data[[t]]    <- d
     }
     else{
-      key_data[[t]]    <- preprivalry::create_nan_trialdata(percept_keys)
+      key_data[[t]]    <- create_nan_trialdata(percept_keys)
     }
   }
   return(key_data)
