@@ -28,9 +28,9 @@ reorganize_trial_data <- function(data){
   eye <- eye[index_order]
   timeUp <- timeUp[index_order]
   timeDown <- timeDown[index_order]
-  trial <- c(trial,(numeric(length(timeUp)) + k))
-  run <- c(run,(numeric(length(timeUp)) + j))
-  session  <- c(session, (numeric(length(timeUp)) + i))
+  trial <- c(trial,(numeric(length(timeUp))))
+  run <- c(run,(numeric(length(timeUp))))
+  session  <- c(session, (numeric(length(timeUp))))
 
   subject <- rep(subjID,length(timeDown))
   keyname[id == percept_keys[1,1]] <- percept_keys[2,1]
