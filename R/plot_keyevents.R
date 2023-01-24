@@ -20,7 +20,7 @@
 plot_keyevents <- function(data,sessionNo,runNo,trialNo){
   # if data is given as list, convert it into table
   if(!is.data.frame(data)){
-    data <- preprivalry::reorganize_as_table(data)
+    data <- reorganize_as_table(data)
   }
   # filter the data by the given parameters
   if(!missing(sessionNo)){

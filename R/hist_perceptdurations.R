@@ -18,7 +18,7 @@
 #' hist_perceptdurations(data,sessionNo,runNo,trialNo)}
 hist_perceptdurations <- function(data,sessionNo,runNo,trialNo){
   if(!is.data.frame(data)){
-    data <- preprivalry::reorganize_as_table(data)
+    data <- reorganize_as_table(data)
   }
   # filter the data by the given parameters
   if(!missing(sessionNo)){
