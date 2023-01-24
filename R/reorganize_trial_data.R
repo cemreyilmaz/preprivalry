@@ -15,7 +15,6 @@ reorganize_trial_data <- function(data){
   session  <- c()
   run      <- c()
   trial    <- c()
-  keyname  <- c()
   for(l in 1:length(data)){# each percept key
     curr_data <- data[[l]]
     id  <- c(id, curr_data$key)
