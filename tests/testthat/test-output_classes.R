@@ -7,23 +7,29 @@ test_that("multiplication works", {
 a <- c()
 b <- c()
 a[[1]] <- data.frame(key = c(114, 114, 114, 114, 114),
-                                 onset = c(8.42, 10.73, 15.51, 20.23, 35.53),
-                                 duration = c(1.91, 0.63, 0.55, 2.56, 1.36))
+                     onset = c(8.42, 10.73, 15.51, 20.23, 35.53),
+                     duration = c(1.91, 0.63, 0.55, 2.56, 1.36),
+                     eye_info = c("LeftEye","LeftEye","LeftEye","LeftEye","LeftEye"))
 a[[2]] <- data.frame(key = c(115, 115, 115),
-                                 onset = c(12.44, 17.47, 31.47),
-                                 duration = c(0.85, 0.97, 3.20))
+                     onset = c(12.44, 17.47, 31.47),
+                     duration = c(0.85, 0.97, 3.20),
+                     eye_info = c("RightEye","RightEye","RightEye"))
 a[[3]] <- data.frame(key = c(0, 0, 0, 0, 0, 0, 0, 0),
-                                 onset = c(10.33, 11.37, 13.30, 16.06, 18.44, 22.80, 34.68, 36.89),
-                                 duration = c(0.40, 1.07, 2.20, 1.40, 1.79, 8.67, 0.84, 2.21))
+                     onset = c(10.33, 11.37, 13.30, 16.06, 18.44, 22.80, 34.68, 36.89),
+                     duration = c(0.40, 1.07, 2.20, 1.40, 1.79, 8.67, 0.84, 2.21),
+                     eye_info = c("Transition","Transition","Transition","Transition","Transition","Transition","Transition","Transition"))
 b[[1]] <- data.frame(key = c(115, 115, 115, 115),
-                                 onset = c(149.12, 153.22, 158.71, 163.13),
-                                 duration = c(1.67, 1.76, 0.67, 3.67))
+                     onset = c(149.12, 153.22, 158.71, 163.13),
+                     duration = c(1.67, 1.76, 0.67, 3.67),
+                     eye_info = c("LeftEye","LeftEye","LeftEye","LeftEye"))
 b[[2]] <- data.frame(key = c(114, 114, 114, 114),
-                                 onset = c(155.81, 161.28, 167.93, 169.90),
-                                 duration = c(2.52, 0.62, 1.01, 0.54))
+                     onset = c(155.81, 161.28, 167.93, 169.90),
+                     duration = c(2.52, 0.62, 1.01, 0.54),
+                     eye_info = c("RightEye","RightEye","RightEye","RightEye"))
 b[[3]] <- data.frame(key = c(0, 0, 0, 0, 0, 0, 0),
-                                 onset = c(150.80, 154.98, 158.34, 159.38, 161.91, 166.81, 168.94),
-                                 duration = c(2.41, 0.83, 0.36, 1.89, 1.22, 1.12, 0.95))
+                     onset = c(150.80, 154.98, 158.34, 159.38, 161.91, 166.81, 168.94),
+                     duration = c(2.41, 0.83, 0.36, 1.89, 1.22, 1.12, 0.95),
+                     eye_info = c("Transition","Transition","Transition","Transition","Transition","Transition","Transition"))
 run_data <- list(a,b)
 
 test_that("clean_keyevents returns a data.frame", {expect_true(is.data.frame(

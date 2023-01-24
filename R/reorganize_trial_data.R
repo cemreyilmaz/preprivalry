@@ -25,19 +25,19 @@ reorganize_trial_data <- function(data){
   }
   index_order <- order(timeDown)
   id <- id[index_order]
-  eye <- eye[index_order]
+  if(is.null(eye)){
+    eye <-(rep("NA",length(id)))
+  }else{
+    eye <- eye[index_order]
+  }
   timeUp <- timeUp[index_order]
   timeDown <- timeDown[index_order]
   trial <- c(trial,(numeric(length(timeUp))))
   run <- c(run,(numeric(length(timeUp))))
   session  <- c(session, (numeric(length(timeUp))))
 
-  subject <- rep(subjID,length(timeDown))
-  keyname[id == percept_keys[1,1]] <- percept_keys[2,1]
-  keyname[id == percept_keys[1,2]] <- percept_keys[2,2]
-  keyname[id == 0] <- 'Transition'
   duration <- timeUp - timeDown
-  table <- data.frame(run,trial,keyname,id,eye,timeDown,timeUp,duration)
+  table <- data.frame(session,run,trial,id,eye,timeDown,timeUp)
 
   return(table)
 }

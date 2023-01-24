@@ -16,44 +16,60 @@
 #' reorganize_as_table(data,percept_keys,subjectID)
 #' }
 reorganize_as_table <- function(data){
-  percept_keys <- data[['percept_keys']]
-  subjID <- data[['subject']]
-  data <- data[1:(length(data)-2)]
-  id <- c()
-  eye <- c()
-  timeUp   <- c()
-  timeDown <- c()
-  session  <- c()
-  run      <- c()
-  trial    <- c()
-  keyname  <- c()
-  for(i in 1:length(data)){# each session
-    for(j in 1:length(data[[i]])){# each run
-      for(k in 1:length(data[[i]][[j]])){# each trial
-        tmp <- data[[i]][[j]][[k]]
-        tmp_id <- c()
-        tmp_timeDown <- c()
-        tmp_timeUp <- c()
-        tmp_eye <- c()
-        for(l in 1:length(tmp)){# each percept key
-          curr_tmp <- tmp[[l]]
-          tmp_id  <- c(tmp_id, curr_tmp$key)
-          tmp_eye  <- c(tmp_eye, curr_tmp$eye_info)
-          tmp_timeDown <- c(tmp_timeDown, curr_tmp$onset)
-          tmp_timeUp <- c(tmp_timeUp, curr_tmp$onset + curr_tmp$duration)
+  if(!is.null(data$percept_keys)){
+    # then, it is subject data with additional fields. we need to remove those
+    # additional fields before reorganizing it
+    percept_keys <- data[['percept_keys']]
+    subjID <- data[['subject']]
+    data <- data[1:(length(data)-2)]
+  }
+  output <- data.frame(session = c(), run = c(), trial = c(), id = c(),
+                       eye = c(), timeDown = c(), timeUp = c(), duration = c())
+
+  if(is.data.frame(data)){ # trial data
+    tmp         <- reorganize_trial_data(data)
+    tmp$run     <- tmp$run+1
+    tmp$trial   <- tmp$trial+1
+    tmp$session <- tmp$session+1
+    output      <- rbind(output,tmp)
+  }else{ for(i in 1:length(data)){
+      data1 <- data[[i]]
+      if(is.data.frame(data1[[1]])){ # run data
+        tmp <- reorganize_trial_data(data1)
+        tmp$run     <- tmp$run+1
+        tmp$trial   <- tmp$trial+i
+        tmp$session <- tmp$session+1
+        output      <- rbind(output,tmp)
+      }else{ for(j in 1:length(tmp1)){
+          data2 <- data1[[i]]
+          if(is.data.frame(data2[[1]])){ # session data
+            tmp <- reorganize_trial_data(data2)
+            tmp$run     <- tmp$run+j
+            tmp$trial   <- tmp$trial+i
+            tmp$session <- tmp$session+1
+            output      <- rbind(output,tmp)
+          }else{
+            for(k in 1:length(data2)){
+              data3 <- data2[[i]]
+              if(is.data.frame(data3[[1]])){ # subject data
+                tmp <- reorganize_trial_data(data3)
+                tmp$run     <- tmp$run+j
+                tmp$trial   <- tmp$trial+i
+                tmp$session <- tmp$session+k
+                output      <- rbind(output,tmp)
+              }
+            }
+          }
         }
-        index_order <- order(tmp_timeDown)
-        id <- c(id, tmp_id[index_order])
-        eye <- c(eye, tmp_eye[index_order])
-        timeUp <- c(timeUp, tmp_timeUp[index_order])
-        timeDown <- c(timeDown, tmp_timeDown[index_order])
-        trial <- c(trial,(numeric(length(tmp_timeUp)) + k))
-        run <- c(run,(numeric(length(tmp_timeUp)) + j))
-        session  <- c(session, (numeric(length(tmp_timeUp)) + i))
       }
     }
   }
-  subject <- rep(subjID,length(timeDown))
+    for(j in 1:length(data[[i]])){# each run
+      for(k in 1:length(data[[i]][[j]])){# each trial
+
+      }
+    }
+  subject <- rep(subjID,length(output$timeDown))
   keyname[id == percept_keys[1,1]] <- percept_keys[2,1]
   keyname[id == percept_keys[1,2]] <- percept_keys[2,2]
   keyname[id == 0] <- 'Transition'
