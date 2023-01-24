@@ -18,7 +18,7 @@ without defining the other parameters.}
 \item{trialNo}{numeric -- the trial of which data you want to visual.}
 }
 \value{
-nothing
+ggplot
 }
 \description{
 Plot the duration of each percept and transition
