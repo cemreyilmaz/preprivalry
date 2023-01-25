@@ -17,36 +17,30 @@
 #' stats <- descriptive_eye(data)
 #' }
 descriptive_eye <- function(data){
-  if(!is.data.frame(data)){
+  if(is.data.frame(data)){
     data <- reorganize_as_table(data)
   }
-  if(is.element("eye_info",colnames(data))){# if there is eye info
-    eyes <- unique(data[["eye_info"]])
-    eyes <- eyes[eyes > 0]
-    for(j in 1:length(eyes)){
-      curr_dur <- durations[data[["eye_info"]] == eyes[j]]
-      eye_stat <- rbind(eye_stat,
-                        c(stats::median(stats::na.omit(curr_dur)),stats::mad(stats::na.omit(curr_dur)),
-                          mean(stats::na.omit(curr_dur)),stats::sd(stats::na.omit(curr_dur)),
-                          sum(stats::na.omit(curr_dur)),length(stats::na.omit(curr_dur))))
-    }
-    curr_dur <- durations # overall
+  eyes <- unique(data[["eye_info"]])
+  durations <- data[["duration"]]
+  percept_eye <- c()
+  eye_stat <- c()
+  for(k in 1:length(eyes)){
+    percept_eye <- c(percept_eye,eyes[k])
+    curr_dur <- durations[data[["eye_info"]]==eyes[k]]
     eye_stat <- rbind(eye_stat,
                       c(stats::median(stats::na.omit(curr_dur)),stats::mad(stats::na.omit(curr_dur)),
                         mean(stats::na.omit(curr_dur)),stats::sd(stats::na.omit(curr_dur)),
                         sum(stats::na.omit(curr_dur)),length(stats::na.omit(curr_dur))))
-    row_names_output <- c(paste('eye_',eyes,sep=''),'dominant_eyes')
-    if(is.element("eye_info",colnames(data))){
-      row_names_output <- c(row_names_output,paste('eye_',eyes,sep=''))
-    }else{
-      row_names_output <- c("LeftEye","RightEye","Transition")
-    }
-    row_names_output <- c(row_names_output,'overall')
-    rownames(eye_stat) <- row_names_output
-    colnames(eye_stat) <- c('median','mad','mean','std','total_duration','N')
-  }else{
-    eye_stat <- NULL
   }
+  curr_dur <- durations[data[["id"]] > 0] # only dominant percepts
+  eye_stat <- rbind(eye_stat,
+                    c(stats::median(stats::na.omit(curr_dur)),stats::mad(stats::na.omit(curr_dur)),
+                      mean(stats::na.omit(curr_dur)),stats::sd(stats::na.omit(curr_dur)),
+                      sum(stats::na.omit(curr_dur)),length(stats::na.omit(curr_dur))))
+
+  row_names_output <- c(eyes,'dominant_eyes')
+  rownames(eye_stat) <- row_names_output
+  colnames(eye_stat) <- c('median','mad','mean','std','total_duration','N')
   return(eye_stat)
 }
 # ---------------------------------------------------------------------------- #
