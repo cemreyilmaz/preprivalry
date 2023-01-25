@@ -41,7 +41,7 @@ reorganize_as_table <- function(data){
         tmp$session <- tmp$session+1
         output      <- rbind(output,tmp)
       }else{ for(j in 1:length(data1)){
-          data2 <- data1[[i]]
+          data2 <- data1[[j]]
           if(is.data.frame(data2[[1]])){ # session data
             tmp <- reorganize_trial_data(data2)
             tmp$run     <- tmp$run+j
@@ -50,7 +50,7 @@ reorganize_as_table <- function(data){
             output      <- rbind(output,tmp)
           }else{
             for(k in 1:length(data2)){
-              data3 <- data2[[i]]
+              data3 <- data2[[k]]
               if(is.data.frame(data3[[1]])){ # subject data
                 tmp <- reorganize_trial_data(data3)
                 tmp$run     <- tmp$run+j
@@ -64,11 +64,6 @@ reorganize_as_table <- function(data){
       }
     }
   }
-    for(j in 1:length(data[[i]])){# each run
-      for(k in 1:length(data[[i]][[j]])){# each trial
-
-      }
-    }
   subject <- rep(subjID,length(output$timeDown))
   keyname <- rep(percept_keys[2,1],length(output$id))
   keyname[output$id == percept_keys[1,2]] <- percept_keys[2,2]
