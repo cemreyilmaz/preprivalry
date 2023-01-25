@@ -20,7 +20,7 @@ descriptive_eye <- function(data){
   if(is.data.frame(data)){
     data <- reorganize_as_table(data)
   }
-  eyes <- unique(data[["eye"]])
+  eyes <- unique(data[["eye_info"]])
   durations <- data[["duration"]]
   percept_eye <- c()
   eye_stat <- c()
