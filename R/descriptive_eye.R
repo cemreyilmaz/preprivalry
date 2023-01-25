@@ -39,7 +39,7 @@ descriptive_eye <- function(data){
                       sum(stats::na.omit(curr_dur)),length(stats::na.omit(curr_dur))))
 
   curr_dur <- durations # overall
-  trial_stat <- rbind(trial_stat,
+  eye_stat <- rbind(eye_stat,
                       c(stats::median(stats::na.omit(curr_dur)),stats::mad(stats::na.omit(curr_dur)),
                         mean(stats::na.omit(curr_dur)),stats::sd(stats::na.omit(curr_dur)),
                         sum(stats::na.omit(curr_dur)),length(stats::na.omit(curr_dur))))
