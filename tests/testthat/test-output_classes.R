@@ -32,6 +32,11 @@ b[[3]] <- data.frame(key = c(0, 0, 0, 0, 0, 0, 0),
                      eye_info = c("Transition","Transition","Transition","Transition","Transition","Transition","Transition"))
 run_data <- list(a,b)
 
+directory <- paste0(getwd(),'/data')
+experiments <- c("Gratings", "Images","Dots")
+subjects <- c("s001","s002","s003")
+sessions <- 1:3
+
 test_that("clean_keyevents returns a data.frame", {expect_true(is.data.frame(
   clean_keyevents(data.frame(idUp = c(114,114,114,115,115),
                       timeUp = c(0.1,0.13,0.18,0.3,0.5),
@@ -110,7 +115,7 @@ test_that("remove_irrelevant_keyevents returns data.frame", {expect_true(is.data
 ))})
 
 test_that("reorganize_as_table returns a data.frame", {
-  expect_true(is.data.frame(reorganize_as_table(preprocessing_subject(directory,experiments[1],subjects[1],sessions[3]))))
+  expect_true(is.data.frame(reorganize_as_table(run_data)))
 })
 
 test_that("replay_score returns numeric", {expect_true(is.numeric(
