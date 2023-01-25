@@ -40,12 +40,12 @@ bar_stats <- function(data,sessionNo,runNo,trialNo){
     warning('You need to select a sesssion at least!')
   }
   # prepare for the plots
-  stats_riv <- preprivalry::descriptive_trial(data)
-  stats_eye <- preprivalry::descriptive_eye(data)
+  stats_riv <- as.data.frame(preprivalry::descriptive_trial(data))
+  stats_eye <- as.data.frame(preprivalry::descriptive_eye(data))
   par(mfrow=c(2,3))
   # ---------- keys ---------- #
   percept_keys <- sort(as.array(unlist(unique(data['keyname']))))
-  labels_key <- factor(c(percept_keys,'Both Key', 'Overall'), levels = c(percept_keys,'Both Key', 'Overall'))
+  stats_riv$labels_key <- factor(c(percept_keys,'Both Key', 'Overall'), levels = c(percept_keys,'Both Key', 'Overall'))
   # 1, median(percept_keys) w/ errorbars of median absolute deviation
   k1 <- ggplot2::ggplot(as.data.frame(stats_riv)) +
     ggplot2::geom_bar(ggplot2::aes(x=labels_key, y=median),
@@ -72,8 +72,8 @@ bar_stats <- function(data,sessionNo,runNo,trialNo){
     ggplot2::labs(title='Total Percept', x=NULL, y='Duration (sec)') +
     ggplot2::theme(axis.text.x = ggplot2::element_text(angle = 90, vjust = 0.5, hjust=1))
   # ---------- eyes ---------- #
-  percept_eyes <- sort(as.array(unlist(unique(data['eye']))))
-  labels_eye <- factor(c(percept_eyes,'Both Eye', 'Overall'),levels=factor(c(percept_eyes,'Both Eye', 'Overall')))
+  percept_eyes <- sort(as.array(unlist(unique(data['eye_info']))))
+  stats_eye$labels_eye <- factor(c(percept_eyes,'Both Eye', 'Overall'),levels=factor(c(percept_eyes,'Both Eye', 'Overall')))
   # 1, median(percept_eyes) w/ errorbars of median absolute deviation
   e1 <- ggplot2::ggplot(as.data.frame(stats_eye)) +
     ggplot2::geom_bar(ggplot2::aes(x=labels_eye, y=median),
