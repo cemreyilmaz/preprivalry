@@ -70,9 +70,9 @@ reorganize_as_table <- function(data){
       }
     }
   subject <- rep(subjID,length(output$timeDown))
-  keyname <- rep(percept_keys[2,1],length(id))
-  keyname[id == percept_keys[1,2]] <- percept_keys[2,2]
-  keyname[id == 0] <- 'Transition'
+  keyname <- rep(percept_keys[2,1],length(output$id))
+  keyname[output$id == percept_keys[1,2]] <- percept_keys[2,2]
+  keyname[output$id == 0] <- 'Transition'
   duration <- output$timeUp - output$timeDown
   table <- data.frame(subject,output$session,output$run,output$trial,keyname,
                       output$id,output$eye,output$timeDown,output$timeUp,duration)
