@@ -74,7 +74,14 @@ reorganize_as_table <- function(data){
   keyname[output$id == percept_keys[1,2]] <- percept_keys[2,2]
   keyname[output$id == 0] <- 'Transition'
   duration <- output$timeUp - output$timeDown
-  table <- data.frame(subject,output$session,output$run,output$trial,keyname,
-                      output$id,output$eye,output$timeDown,output$timeUp,duration)
+  session <- output$session
+  run <- output$run
+  trial <- output$trial
+  id <- output$id
+  eye_info <- output$eye_info
+  timeDown <- output$timeDown
+  timeUp <-output$timeUp
+  table <- data.frame(subject,session,run,trial,keyname,
+                      id,eye_info,timeDown,timeUp,duration)
 }
 # ---------------------------------------------------------------------------- #
