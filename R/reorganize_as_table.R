@@ -22,6 +22,10 @@ reorganize_as_table <- function(data){
     percept_keys <- data[['percept_keys']]
     subjID <- data[['subject']]
     data <- data[1:(length(data)-2)]
+  }else{
+    percept_keys <- matrix(data=c("LeftArrow","RightArrow","Transition",115,114,0),
+                           nrow = 3, ncol = 2)
+    subjID <- "unknown"
   }
   output <- data.frame(session = c(), run = c(), trial = c(), id = c(),
                        eye = c(), timeDown = c(), timeUp = c(), duration = c())
