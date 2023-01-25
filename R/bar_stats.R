@@ -72,7 +72,7 @@ bar_stats <- function(data,sessionNo,runNo,trialNo){
     ggplot2::labs(title='Total Percept', x=NULL, y='Duration (sec)') +
     ggplot2::theme(axis.text.x = ggplot2::element_text(angle = 90, vjust = 0.5, hjust=1))
   # ---------- eyes ---------- #
-  percept_eyes <- sort(as.array(unlist(unique(data['eye']))))
+  percept_eyes <- sort(as.array(unlist(unique(data['eye_info']))))
   labels_eye <- factor(c(percept_eyes,'Both Eye', 'Overall'),levels=factor(c(percept_eyes,'Both Eye', 'Overall')))
   # 1, median(percept_eyes) w/ errorbars of median absolute deviation
   e1 <- ggplot2::ggplot(as.data.frame(stats_eye)) +
