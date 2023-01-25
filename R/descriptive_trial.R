@@ -37,27 +37,12 @@ descriptive_trial <- function(data){
                       c(stats::median(stats::na.omit(curr_dur)),stats::mad(stats::na.omit(curr_dur)),
                         mean(stats::na.omit(curr_dur)),stats::sd(stats::na.omit(curr_dur)),
                         sum(stats::na.omit(curr_dur)),length(stats::na.omit(curr_dur))))
-  if(is.element("eye_info",colnames(data))){# if there is eye info
-    eyes <- unique(data[["eye_info"]])
-    eyes <- eyes[eyes > 0]
-    for(j in 1:length(eyes)){
-      curr_dur <- durations[data[["eye_info"]] == eyes[j]]
-      trial_stat <- rbind(trial_stat,
-                          c(stats::median(stats::na.omit(curr_dur)),stats::mad(stats::na.omit(curr_dur)),
-                            mean(stats::na.omit(curr_dur)),stats::sd(stats::na.omit(curr_dur)),
-                            sum(stats::na.omit(curr_dur)),length(stats::na.omit(curr_dur))))
-    }
-  }
   curr_dur <- durations # overall
   trial_stat <- rbind(trial_stat,
                       c(stats::median(stats::na.omit(curr_dur)),stats::mad(stats::na.omit(curr_dur)),
                         mean(stats::na.omit(curr_dur)),stats::sd(stats::na.omit(curr_dur)),
                         sum(stats::na.omit(curr_dur)),length(stats::na.omit(curr_dur))))
-  row_names_output <- c(paste('percept_',keys,sep=''),'dominant_percepts')
-  if(is.element("eye_info",colnames(data))){
-    row_names_output <- c(row_names_output,paste('eye_',eyes,sep=''))
-  }
-  row_names_output <- c(row_names_output,'overall')
+  row_names_output <- c(paste('percept_',keys,sep=''),'dominant_percepts','overall')
   rownames(trial_stat) <- row_names_output
   colnames(trial_stat) <- c('median','mad','mean','std','total_duration','N')
   return(trial_stat)

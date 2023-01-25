@@ -38,7 +38,12 @@ descriptive_eye <- function(data){
                       mean(stats::na.omit(curr_dur)),stats::sd(stats::na.omit(curr_dur)),
                       sum(stats::na.omit(curr_dur)),length(stats::na.omit(curr_dur))))
 
-  row_names_output <- c(eyes,'dominant_eyes')
+  curr_dur <- durations # overall
+  trial_stat <- rbind(trial_stat,
+                      c(stats::median(stats::na.omit(curr_dur)),stats::mad(stats::na.omit(curr_dur)),
+                        mean(stats::na.omit(curr_dur)),stats::sd(stats::na.omit(curr_dur)),
+                        sum(stats::na.omit(curr_dur)),length(stats::na.omit(curr_dur))))
+  row_names_output <- c(eyes,'dominant_eyes','overall')
   rownames(eye_stat) <- row_names_output
   colnames(eye_stat) <- c('median','mad','mean','std','total_duration','N')
   return(eye_stat)
