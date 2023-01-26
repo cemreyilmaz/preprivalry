@@ -7,14 +7,15 @@
 replay_score(data)
 }
 \arguments{
-\item{data}{data.frame -- scaled data to a new time series by \link{rescale_replay_data()}}
+\item{data}{data.frame -- scaled data}
 }
 \value{
 numeric -- replay score
 }
 \description{
 This function calculates the ratio of correct responses of a given subject in
-a given run as their replay score.
+a given run as their replay score. The input data must be the scaled data to a
+new time series by \link{rescale_replay_data()}
 }
 \examples{
 \dontrun{
