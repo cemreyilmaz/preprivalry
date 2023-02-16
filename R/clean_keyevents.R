@@ -90,6 +90,12 @@ clean_keyevents <- function(key,iteration){
     },
     error=function(cond){
       message("No keys are found!")
+      id_down   <- NaN
+      time_down <- NaN
+      name_down <- NaN
+      id_up   <- NaN
+      time_up <- NaN
+      name_up <- NaN
     }
   )
   # re-define "key"
