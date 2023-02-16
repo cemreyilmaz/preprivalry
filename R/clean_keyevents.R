@@ -23,10 +23,10 @@ clean_keyevents <- function(key,iteration){
   id_down <- key$idDown
   time_down <- key$timeDown
   name_down <- key$nameDown
-  tryCatch(
-    {
-      # cleaning
-      for(i in 1:iteration){
+  # cleaning
+  for(i in 1:iteration){
+    if(length(id_up) > 0){
+      if(!is.na(id_up)){
         # if keyUp comes before first keyDown
         # => delete first release
         if(time_up[1] < time_down[1]){
@@ -87,14 +87,15 @@ clean_keyevents <- function(key,iteration){
           name_down <- name_down[2:length(name_down)]
         }
       }
-    },
-    error=function(cond){
-      message("No keys are found!")
-      key <- data.frame(idDown = NaN, timeDown = NaN, nameDown = NaN,
-                        idUp = NaN, timeUp = NaN, nameUp = NaN)
-      return(key)
+    } else {
+      id_down <- NaN
+      time_down <- NaN
+      name_down <- NaN
+      id_up <- NaN
+      time_up <- NaN
+      name_up <- NaN
     }
-  )
+  }
   # re-define "key"
   key <- data.frame(idDown = id_down, timeDown = time_down, nameDown = name_down,
                     idUp = id_up, timeUp = time_up, nameUp = name_up)
