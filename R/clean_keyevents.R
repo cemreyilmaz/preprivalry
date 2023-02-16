@@ -92,6 +92,7 @@ clean_keyevents <- function(key,iteration){
       message("No keys are found!")
       key <- data.frame(idDown = NaN, timeDown = NaN, nameDown = NaN,
                         idUp = NaN, timeUp = NaN, nameUp = NaN)
+      return(key)
     }
   )
   # re-define "key"
