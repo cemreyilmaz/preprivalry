@@ -26,7 +26,7 @@ clean_keyevents <- function(key,iteration){
   # cleaning
   for(i in 1:iteration){
     if(length(id_up) > 0){
-      if(!is.na(id_up)){
+      if(sum(!is.na(id_up))){
         # if keyUp comes before first keyDown
         # => delete first release
         if(time_up[1] < time_down[1]){
@@ -61,30 +61,30 @@ clean_keyevents <- function(key,iteration){
           time_down <- time_down[1:(length(time_down)-1)]
           name_down <- name_down[1:(length(name_down)-1)]
         }
-      } # end
-      # check if there is a mismatch between the length of arrays
-      if(length(id_down) < length(id_up)){
-        if(time_down[1]<time_up[1]){ # remove last release
-          id_up <- id_up[1:(length(id_up)-1)]
-          time_up <- time_up[1:(length(time_up)-1)]
-          name_up <- name_up[1:(length(name_up)-1)]
+        # check if there is a mismatch between the length of arrays
+        if(length(id_down) < length(id_up)){
+          if(time_down[1]<time_up[1]){ # remove last release
+            id_up <- id_up[1:(length(id_up)-1)]
+            time_up <- time_up[1:(length(time_up)-1)]
+            name_up <- name_up[1:(length(name_up)-1)]
+          }
+          if(time_down[1]>time_up[1]){ # remove first release
+            id_up <- id_up[2:length(id_up)]
+            time_up <- time_up[2:length(time_up)]
+            name_up <- name_up[2:length(name_up)]
+          }
         }
-        if(time_down[1]>time_up[1]){ # remove first release
-          id_up <- id_up[2:length(id_up)]
-          time_up <- time_up[2:length(time_up)]
-          name_up <- name_up[2:length(name_up)]
-        }
-      }
-      if(length(id_down) > length(id_up)){
-        if(time_down[1]<time_up[1]){ # remove last press
-          id_down <- id_down[1:(length(id_down)-1)]
-          time_down <- time_down[1:(length(time_down)-1)]
-          name_down <- name_down[1:(length(name_down)-1)]
-        }
-        if(time_down[1]>time_up[1]){ # remove first press
-          id_down <- id_down[2:length(id_down)]
-          time_down <- time_down[2:length(time_down)]
-          name_down <- name_down[2:length(name_down)]
+        if(length(id_down) > length(id_up)){
+          if(time_down[1]<time_up[1]){ # remove last press
+            id_down <- id_down[1:(length(id_down)-1)]
+            time_down <- time_down[1:(length(time_down)-1)]
+            name_down <- name_down[1:(length(name_down)-1)]
+          }
+          if(time_down[1]>time_up[1]){ # remove first press
+            id_down <- id_down[2:length(id_down)]
+            time_down <- time_down[2:length(time_down)]
+            name_down <- name_down[2:length(name_down)]
+          }
         }
       }
     } else {
