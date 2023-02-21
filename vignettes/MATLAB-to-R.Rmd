@@ -46,13 +46,16 @@ One can import the data by using ```read_rivdata()``` function.
 We saved separate .mat files for each experimental run by naming the file as: ExperimentName_s###_session#_run#_date.mat. Therefore, the function first creates the full path. Then, it checks if the file exists. If it exits, the function reads it. If an error comes up, it warns the user.
 
 
-```{r importingData}
-setwd("..")
-directory <- paste0(getwd(),"/data") # the folder which contains the data
+```
+directory <- "/data" # the folder which contains the data
 s         <- 1 # session number 
-data      <- read_rivdata(directory,"Gratings","s001",s)
-summary(data)
-
+rivdata      <- read_rivdata(directory,"Gratings","s001",s)
+```
+```{r, include = FALSE}
+load(paste0(getwd(),"/data/sample_data.Rdata"))
+```
+```{r showSummary}
+summary(rivdata)
 ```
 
 Our interest will be on ```data[["log"]]``` for the further steps.
