@@ -17,8 +17,8 @@
 #'
 #' @examples
 #' \dontrun{
-#' rescale_replay_data(directory,"Gratings",1,3)}
-rescale_replay_data <- function(data){
+#' rescale_replay_data(data,"Gratings")}
+rescale_replay_data <- function(data, expType="None"){
   # extract stimulus info
   a <- data[['stimulus']][[length(data[['stimulus']])]]
   if(grepl("Dots", expType, fixed=TRUE)){

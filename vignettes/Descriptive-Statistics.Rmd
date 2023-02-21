@@ -23,9 +23,9 @@ The package **preprivalry** has a couple of functions for basic statistics on ri
 
 ```{r stats}
 load(paste0(getwd(),"/data/sample_data.Rdata"))
-stats     <- descriptive_trial(data[data$trial == 1 & data$run == 1,])
+stats     <- descriptive_trial(rivalry_data[rivalry_data$trial == 1 & rivalry_data$run == 1,])
 stats
-stats_eye <- descriptive_eye(data[data$trial == 1 & data$run == 1,])
+stats_eye <- descriptive_eye(rivalry_data[rivalry_data$trial == 1 & rivalry_data$run == 1,])
 stats_eye
 ```
 

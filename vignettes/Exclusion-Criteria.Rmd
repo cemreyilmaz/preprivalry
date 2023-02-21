@@ -25,7 +25,7 @@ We calculate eye dominance by ```rivalry.eye.dominance()``` just after the first
 
 ```{r eyeDominance}
 load(paste0(getwd(),"/data/sample_data.Rdata"))
-rivalry.eye_dominance(data)
+rivalry.eye_dominance(rivalry_data)
 ```
 ## Replay score
 
@@ -34,5 +34,5 @@ We calculate the ratio of correct response of subject in each run and average th
 ```{r replayScore}
 load(paste0(getwd(),"/data/sample_data.Rdata"))
 repdata <- preprivalry::rescale_replay_data(repdata)
-replay_score(data)
+replay_score(repdata)
 ```
