@@ -50,10 +50,14 @@ After that, ```preprocessing_trial()``` organizes the data and ```create_transit
 If there is no key events were recorded during the given trial, ```create_nan_trialdata()``` creates same data.frame with nans. 
 
 All these preprocessing steps will be performed for a run by ```preprocessing_run()``` function. As a final step, we add the info for dominant eye. ```eye_info()``` adds the dominant eye as a new field to the data.
+```
+directory <- "/data" # the folder which contains the data
+run_data <- preprivalry::preprocessing_run(directory,"Gratings","s001",1)
+```
+```{r, include = FALSE}
+load(paste0(getwd(),"/data/sample_data.Rdata"))
+```
 ```{r preprocessingrun}
-setwd("..")
-directory <- paste0(getwd(),"/data") # the folder which contains the data
-data <- preprivalry::preprocessing_run(directory,"Gratings","s001",1)
-data <- preprivalry::eye_info(data)
-head(data,1) # data of trial 1
+run_data <- preprivalry::eye_info(run_data)
+head(run_data,1) # data of trial 1
 ```

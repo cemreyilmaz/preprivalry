@@ -23,25 +23,25 @@ After preprocessing, the data can be visualized to check the subjects' response,
 ## Visualize Rivalry Session
 The input for the visualization functions is the same: data, session#, run#, trial#. One can visualize the data for a run or a trial. Although one does not have to, we recommend to specify at least session and run since the output would be little messy and not useful for interpretation.
 
-```{r visualize rivalry, fig.height = 3, fig.width = 6, fig.align = "center"}
-setwd("..")
-directory <- paste0(getwd(),"/data") # the folder which contains the data
-experiments <- c("Gratings","Images","GratingImage")
+```
+"/data" # the folder which contains the data
+experiments <- c("Gratings", "Images", "GratingImage")
 subject <- "s001"
-session <- 1
-run <- 1
-trial <- 1
-data <- preprocessing_subject(directory,experiments,subject,session)
-plot_keyevents(data,session,run)
-plot_perceptdurations(data,session,run,trial)
-hist_perceptdurations(data,session,run,trial)
-bar_stats(data,session,run,trial)
+subject_data <- preprocessing_subject(directory, experiments, subject, sessions=1)
+```
+```{r,include=FALSE}
+load(paste0(getwd(),"/data/sample_data.Rdata"))
+```
+```{r visualize rivalry, fig.height = 3, fig.width = 6, fig.align = "center"}
+plot_keyevents(subject_data, sessionNo=1, runNo=1)
+plot_perceptdurations(subject_data, sessionNo=1, runNo=1, trialNo=1)
+hist_perceptdurations(subject_data, sessionNo=1, runNo=1, trialNo=1)
+bar_stats(subject_data, sessionNo=1, runNo=1, trialNo=1)
 ```
 
 ## Visualize Responses in Replay Session
 We performed the last session as imitation of rivalry based on the participant's report in the first session. This replay session is used to check the response reliability of participants. Other than correlational check, it is possible to visually compare the participant's response and the actual presentation.
 ```{r visualize replay, fig.height = 3, fig.width = 6, fig.align = "center"}
-setwd("..")
 directory <- paste0(getwd(),"/data") # the folder which contains the data
 replay_visualize_run(directory,"Gratings","s001")
 ```
