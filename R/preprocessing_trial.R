@@ -18,15 +18,21 @@
 preprocessing_trial <- function(trial_key,zero_point,percept_keys){
   trial_data <- list()
   percept_keys <- as.matrix(unlist(unique(trial_key['idDown'])))
-  for(p in 1:length(percept_keys)){
-    theKey <- percept_keys[p]
-    perceptStartTime <- trial_key[trial_key['idDown']==theKey,]
-    perceptStartTime <- perceptStartTime$timeDown
-    perceptEndTime   <- trial_key[trial_key['idUp']==theKey,]
-    perceptEndTime   <- perceptEndTime$timeUp
-    trial_data[[p]]  <- data.frame(key  = theKey,
-                                   onset = perceptStartTime - zero_point,
-                                   duration = c(perceptEndTime - perceptStartTime))
+  if(length(percept_keys)==0){
+    trial_data[[p]]  <- data.frame(key  = NaN,
+                                   onset = NaN,
+                                   duration = NaN)
+  } else {
+    for(p in 1:length(percept_keys)){
+      theKey <- percept_keys[p]
+      perceptStartTime <- trial_key[trial_key['idDown']==theKey,]
+      perceptStartTime <- perceptStartTime$timeDown
+      perceptEndTime   <- trial_key[trial_key['idUp']==theKey,]
+      perceptEndTime   <- perceptEndTime$timeUp
+      trial_data[[p]]  <- data.frame(key  = theKey,
+                                     onset = perceptStartTime - zero_point,
+                                     duration = c(perceptEndTime - perceptStartTime))
+    }
   }
   return(trial_data)
 }
