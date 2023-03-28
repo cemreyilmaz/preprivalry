@@ -12,21 +12,21 @@
 #' @param expList list -- contains all the possible experiment name as characters
 #' @param participant character or numeric - the subject id e.g. 's001' or simply
 #'     the number of subject
-#' @param sessions numeric -- the number of sessions to be preprocessed in total
+#' @param sessions numeric array -- the number of sessions to be preprocessed in total
 #'
 #' @return list -- contains the preprocessed data of every sessions
 #' @export
 #'
 #' @examples
 #' \dontrun{
-#' preprocessing_subject('~/preprivalry/tests',c('RivalryGrating','RivalryImages'),1,2)
+#' preprocessing_subject('~/preprivalry/tests',c('RivalryGrating','RivalryImages'),1,1:2)
 #' }
 preprocessing_subject <- function(directory,expList,participant,sessions){
   data <- list()
   if(is.numeric(participant)){
     participant <- paste('s',sprintf('%03d', participant),sep = '')
   }
-  for(session_no in 1:sessions){
+  for(session_no in sessions){
     session_data <- preprivalry::preprocessing_session(directory,expList,participant,session_no)
     data[[session_no]] <- session_data
   }

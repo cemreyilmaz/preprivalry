@@ -22,21 +22,25 @@ library(preprivalry)
 
 After data collection, one can complete preprocessing with a few line:
 
-```{r preprocessing}
-setwd("..")
-directory <- paste0(getwd(),"/data") # the folder which contains the data
+```
+directory <- "/data" # the folder which contains the data
 experiments <- c("Gratings","Images","GratingImage") 
 subjects <- c("s001","s002","s003")
 sessions <- 3 # total number of sessions
-all_subjects <- c()
+rivalry_data <- c()
 for(s in subjects){
   data <- preprocessing_subject(directory,experiments,s,sessions)
   data <- reorganize_as_table(data)
-  if(length(all_subjects)==0){
-    all_subjects <- data
+  if(length(rivalry_data)==0){
+    rivalry_data <- data
   } else{
-    all_subjects <- rbind(all_subjects,data)
+    rivalry_data <- rbind(rivalry_data,data)
   }
 }
-head(all_subjects)
+```
+```{r, include=FALSE}
+load(paste0(getwd(),"/data/sample_data.Rdata"))
+```
+```{r preprocessing}
+head(rivalry_data)
 ```

@@ -6,12 +6,7 @@
 #' percept key ids are assigned to indicate either the subject response or the
 #' stimulus presented at that time point.
 #'
-#' @param directory character -- the directory that contains all the data
-#' @param expType character -- the experiment name
-#' @param participant character or numeric -- the subject id e.g. 's001' or simply
-#'     the number of subject
-#' @param session character or numeric -- the session number of replay as numeric
-#'     or in the format of 'session1'
+#' @param data list -- the output of \link{read_rivdata()}
 #'
 #' @return data.frame -- scaled data to a new time series
 #'
@@ -22,19 +17,10 @@
 #'
 #' @examples
 #' \dontrun{
-#' rescale_replay_data(directory,"Gratings",1,3)}
-rescale_replay_data <- function(directory,expType,participant,session){
-  # check inputs
-  if(is.numeric(participant)){
-    participant <- paste('s',sprintf('%03d', participant),sep = '')
-  }
-  if(is.numeric(session)){
-    session <- paste('session', session, sep = '')
-  }
-  # read data
-  rivdata <- read_rivdata(directory,expType,participant,session)
+#' rescale_replay_data(data,"Gratings")}
+rescale_replay_data <- function(data, expType="None"){
   # extract stimulus info
-  a <- rivdata[['stimulus']][[length(rivdata[['stimulus']])]]
+  a <- data[['stimulus']][[length(data[['stimulus']])]]
   if(grepl("Dots", expType, fixed=TRUE)){
     percept_peaks <- a[[length(a)-1]]
     percept_onsets <- a[[length(a)-2]]
@@ -43,11 +29,11 @@ rescale_replay_data <- function(directory,expType,participant,session){
     percept_onsets <- a[[length(a)-1]]
   }
   # extract exp info
-  exp     <- extract_exp(rivdata)
+  exp     <- extract_exp(data)
   # extract key events
-  exp_key <- extract_key(rivdata)
+  exp_key <- extract_key(data)
   # extract percept keys
-  percept_keys <- as.numeric(unlist(rivdata[["log"]][[4]][[1]]))
+  percept_keys <- as.numeric(unlist(data[["log"]][[4]][[1]]))
   a <- exp_key$timeDown-exp_key$timeUp
   for(i in length(percept_onsets)){
     a <- c(a,(diff(percept_onsets[[i]][[1]][,1])))

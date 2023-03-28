@@ -24,27 +24,15 @@ If the participants have a strong eye dominance or they responded very unreliabl
 We calculate eye dominance by ```rivalry.eye.dominance()``` just after the first session, and if the value is higher than 0.8, we stop the experiments with that subject. 
 
 ```{r eyeDominance}
-setwd("..")
-directory <- paste0(getwd(),"/data") # the folder which contains the data
-session   <- 1
-data      <- preprocessing_subject(directory,c("Gratings","Images","GratingImage"),"s001",session)
-data      <- reorganize_as_table(data)
-rivalry.eye_dominance(data)
+load(paste0(getwd(),"/data/sample_data.Rdata"))
+rivalry.eye_dominance(rivalry_data)
 ```
 ## Replay score
 
 We calculate the ratio of correct response of subject in each run and average these scores. This is the replay score of a subject and it is expected to be higher than 0.5. 
 
 ```{r replayScore}
-setwd("..")
-directory <- paste0(getwd(),"/data") # the folder which contains the data
-experiments <- c("Gratings","Images","GratingImage")
-scores <- c()
-for(e in 1:3){
-  data <- preprivalry::rescale_replay_data(directory, experiments[e], "s001", 3)
-  tmp <- replay_score(data)
-  scores <- c(scores,tmp)
-}
-scores
-mean(scores)
+load(paste0(getwd(),"/data/sample_data.Rdata"))
+repdata <- preprivalry::rescale_replay_data(repdata)
+replay_score(repdata)
 ```
