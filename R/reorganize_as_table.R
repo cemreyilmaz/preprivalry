@@ -48,8 +48,8 @@ reorganize_as_table <- function(data){
           data2 <- data1[[j]]
           if(is.data.frame(data2[[1]])){ # session data
             tmp <- reorganize_trial_data(data2)
-            tmp$run     <- tmp$run+j
-            tmp$trial   <- tmp$trial+i
+            tmp$run     <- tmp$run+i
+            tmp$trial   <- tmp$trial+j
             tmp$session <- tmp$session+1
             output      <- rbind(output,tmp)
           }else{
@@ -58,8 +58,8 @@ reorganize_as_table <- function(data){
               if(is.data.frame(data3[[1]])){ # subject data
                 tmp <- reorganize_trial_data(data3)
                 tmp$run     <- tmp$run+j
-                tmp$trial   <- tmp$trial+i
-                tmp$session <- tmp$session+k
+                tmp$trial   <- tmp$trial+k
+                tmp$session <- tmp$session+i
                 output      <- rbind(output,tmp)
               }
             }
