@@ -38,7 +38,7 @@ reorganize_as_table <- function(data){
     output      <- rbind(output,tmp)
   }else{ for(i in 1:length(data)){
       data1 <- data[[i]]
-      if(is.data.frame(data1[[1]])){ # session data
+      if(is.data.frame(data1[[1]])){ # run data
         tmp <- reorganize_trial_data(data1)
         tmp$run     <- tmp$run+1
         tmp$trial   <- tmp$trial+i
@@ -46,20 +46,20 @@ reorganize_as_table <- function(data){
         output      <- rbind(output,tmp)
       }else{ for(j in 1:length(data1)){
           data2 <- data1[[j]]
-          if(is.data.frame(data2[[1]])){ # run data
+          if(is.data.frame(data2[[1]])){ # session data
             tmp <- reorganize_trial_data(data2)
-            tmp$run     <- tmp$run+i
-            tmp$trial   <- tmp$trial+j
+            tmp$run     <- tmp$run+j
+            tmp$trial   <- tmp$trial+i
             tmp$session <- tmp$session+1
             output      <- rbind(output,tmp)
           }else{
             for(k in 1:length(data2)){
               data3 <- data2[[k]]
-              if(is.data.frame(data3[[1]])){ # trial data
+              if(is.data.frame(data3[[1]])){ # subject data
                 tmp <- reorganize_trial_data(data3)
                 tmp$run     <- tmp$run+j
-                tmp$trial   <- tmp$trial+k
-                tmp$session <- tmp$session+i
+                tmp$trial   <- tmp$trial+i
+                tmp$session <- tmp$session+k
                 output      <- rbind(output,tmp)
               }
             }
