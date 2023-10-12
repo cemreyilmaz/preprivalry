@@ -40,7 +40,9 @@ eventbased_replay <- function(data, expType="None"){
     for(i in 1:(length(trial_transperancy)-1)){
       if(trial_transperancy[i]!=trial_transperancy[i+1]){
         if((i-i0 < 30)){
-          trial_transperancy[i0:i] <- rep(trial_transperancy[(i0-1)],(i-i0+1))
+          if(i0!=1){
+            trial_transperancy[i0:i] <- rep(trial_transperancy[(i0-1)],(i-i0+1))
+          }
         }
         i0=i+1
       }
