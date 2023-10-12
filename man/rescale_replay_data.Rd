@@ -9,18 +9,10 @@ the minimum time difference in data and stimulus presentation. Then, the
 percept key ids are assigned to indicate either the subject response or the
 stimulus presented at that time point.}
 \usage{
-rescale_replay_data(directory, expType, participant, session)
+rescale_replay_data(data, expType = "None")
 }
 \arguments{
-\item{directory}{character -- the directory that contains all the data}
-
-\item{expType}{character -- the experiment name}
-
-\item{participant}{character or numeric -- the subject id e.g. 's001' or simply
-the number of subject}
-
-\item{session}{character or numeric -- the session number of replay as numeric
-or in the format of 'session1'}
+\item{data}{list -- the output of \link{read_rivdata()}}
 }
 \value{
 data.frame -- scaled data to a new time series
@@ -35,5 +27,5 @@ stimulus presented at that time point.
 }
 \examples{
 \dontrun{
-rescale_replay_data(directory,"Gratings",1,3)}
+rescale_replay_data(data,"Gratings")}
 }

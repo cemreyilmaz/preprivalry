@@ -14,7 +14,7 @@ preprocessing_subject(directory, expList, participant, sessions)
 \item{participant}{character or numeric - the subject id e.g. 's001' or simply
 the number of subject}
 
-\item{sessions}{numeric -- the number of sessions to be preprocessed in total}
+\item{sessions}{numeric array -- the number of sessions to be preprocessed in total}
 }
 \value{
 list -- contains the preprocessed data of every sessions
@@ -31,6 +31,6 @@ If the participant is given as a numeric variable, the function adds to
 }
 \examples{
 \dontrun{
-preprocessing_subject('~/preprivalry/tests',c('RivalryGrating','RivalryImages'),1,2)
+preprocessing_subject('~/preprivalry/tests',c('RivalryGrating','RivalryImages'),1,1:2)
 }
 }
