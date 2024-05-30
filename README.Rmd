@@ -19,10 +19,16 @@ The goal of **preprivalry** is the preprocessing of binocular rivalry data which
 
 ## Installation
 
-You can install the released version of preprivalry from [CRAN](https://CRAN.R-project.org) with:
+You can install the latest version of preprivalry with:
 
 ``` r
 devtools::install_git('https://github.com/cemreyilmaz/preprivalry')
+```
+
+Alternatively, you can download the zip file for a specific release and you can install it:
+
+``` r
+devtools::install('file.path/preprivalry-1.0.0.zip')
 ```
 
 The sample data-set provided with the package has been created by using the real data recruited during the project TRANSRIV. They are the raw data and debugged manually if there is any missing key events.Please note that the subject IDs and the run numbers are faked to keep the data even more confidential.

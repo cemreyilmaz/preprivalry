@@ -3,12 +3,6 @@
 
 # preprivalry
 
-<!-- badges: start -->
-
-[![Travis build
-status](https://travis-ci.com/cemreyilmaz/preprivalry.svg?branch=master)](https://travis-ci.com/cemreyilmaz/preprivalry)
-<!-- badges: end -->
-
 The goal of **preprivalry** is the preprocessing of binocular rivalry
 data which were collected via PsychToolbox in MATLAB environment in the
 project TRANSRIV by NeuroVision research group in the University of
@@ -17,11 +11,17 @@ is organized as required.
 
 ## Installation
 
-You can install the released version of preprivalry from
-[CRAN](https://CRAN.R-project.org) with:
+You can install the latest version of preprivalry with:
 
 ``` r
-install.packages("preprivalry")
+devtools::install_git('https://github.com/cemreyilmaz/preprivalry')
+```
+
+Alternatively, you can download the zip file for a specific release and
+you can install it:
+
+``` r
+devtools::install('file.path/preprivalry-1.0.0.zip')
 ```
 
 The sample data-set provided with the package has been created by using
