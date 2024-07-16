@@ -19,11 +19,11 @@ remove_irrelevant_keyevents <- function(key,percept_keys){
   time_up <- key$timeUp[!is.na(key['idUp'])]
   name_up <- key$nameUp[!is.na(key['idUp'])]
   # first, remove irrelevant key events
-  keep_down <- (id_down == percept_keys[1] | id_down == percept_keys[2])
+  keep_down <- (id_down %in% percept_keys)
   id_down <- id_down[keep_down]
   time_down <- time_down[keep_down]
   name_down <- name_down[keep_down]
-  keep_up <- (id_up == percept_keys[1] | id_up == percept_keys[2])
+  keep_up <- (id_up %in% percept_keys)
   id_up <- id_up[keep_up]
   time_up <- time_up[keep_up]
   name_up <- name_up[keep_up]
