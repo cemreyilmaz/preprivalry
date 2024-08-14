@@ -84,6 +84,7 @@ eventbased_replay2 <- function(data, expType="None", dominance_key = 18){
             resp_array <- c(resp_array, 0)
           }
         }
+        i0=i+1
       }
     }
     scores <- c(scores, mean(resp_array))
