@@ -15,7 +15,7 @@ eventbased_replay <- function(data, expType="None"){
   # extract stimulus info
   a <- data[['stimulus']][[length(data[['stimulus']])]]
   # extract transparency vector
-  if(expType=="Dots"){
+  if(expType=="Dots" | expType == "DD"){
     transparencies <- a[3][[1]]
   }else{
     transparencies <- a[5][[1]]
