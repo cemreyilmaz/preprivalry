@@ -16,8 +16,8 @@
 #' exp <- extract_exp(read_rivdata('~/preprivalry/tests','RivalryGratings','s001','session1'))
 #' }
 extract_exp <- function(rivdata){
-  trialStartTime <- t(rivdata[["log"]][[5]][[1]]) # trialStartTime
-  trialEndTime   <- t(rivdata[["log"]][[5]][[2]]) # trialEndTime
+  trialStartTime <- t(rivdata[["log"]][[6]][[1]]) # trialStartTime
+  trialEndTime   <- t(rivdata[["log"]][[6]][[2]]) # trialEndTime
   exp <- data.frame(trialStartTime,trialEndTime)
 }
 # ---------------------------------------------------------------------------- #
