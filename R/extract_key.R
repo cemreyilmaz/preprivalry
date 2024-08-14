@@ -16,18 +16,18 @@
 #' key <- extract_key(read_rivdata('~/preprivalry/tests','RivalryGratings','s001','session1'))
 #' }
 extract_key <- function(rivdata){
-  pKeys      <- rivdata[["log"]][[4]][[1]]
-  pKeyNames  <- rivdata[["log"]][[4]][[2]]
-  idDown     <- rivdata[["log"]][[4]][[3]] # key-press id
+  pKeys      <- rivdata[["log"]][[5]][[1]]
+  pKeyNames  <- rivdata[["log"]][[5]][[2]]
+  idDown     <- rivdata[["log"]][[5]][[3]] # key-press id
   nameDown   <- c()
   nameDown[idDown == pKeys[1,1]] <- pKeyNames[[1]][[1]]
   nameDown[idDown == pKeys[1,2]] <- pKeyNames[[2]][[1]]
-  timeDown   <- rivdata[["log"]][[4]][[4]] # key-press time
-  idUp       <- rivdata[["log"]][[4]][[5]] # key-release id
+  timeDown   <- rivdata[["log"]][[5]][[4]] # key-press time
+  idUp       <- rivdata[["log"]][[5]][[5]] # key-release id
   nameUp     <- c()
   nameUp[idUp == pKeys[1,1]] <- pKeyNames[[1]][[1]]
   nameUp[idUp == pKeys[1,2]] <- pKeyNames[[2]][[1]]
-  timeUp     <- rivdata[["log"]][[4]][[6]] # key-release time
+  timeUp     <- rivdata[["log"]][[5]][[6]] # key-release time
   if(length(idUp) != length(idDown)){
     a <- max(c(length(idUp), length(idDown)))
     idUp[length(idUp):a]   <- NaN
