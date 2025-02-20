@@ -18,7 +18,7 @@
 #' @examples
 #' \dontrun{
 #' rescale_replay_data(data,"Gratings")}
-rescale_replay_data <- function(data, expType="None"){
+rescale_replay_data <- function(data, expType="None", x=NULL){
   # extract stimulus info
   a <- data[['stimulus']][[length(data[['stimulus']])]]
   if(grepl("Dots", expType, fixed=TRUE)){
@@ -34,6 +34,9 @@ rescale_replay_data <- function(data, expType="None"){
   exp_key <- extract_key(data)
   # extract percept keys
   percept_keys <- as.numeric(unlist(data[["log"]][[4]][[1]]))
+  if(!is.null(x)){
+    percept_keys <- x
+  }
   a <- exp_key$timeDown-exp_key$timeUp
   for(i in length(percept_onsets)){
     a <- c(a,(diff(percept_onsets[[i]][[1]][,1])))
