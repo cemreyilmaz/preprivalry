@@ -42,18 +42,18 @@ preprocessing_run <- function(directory,expType,participant,session){
   exp_key <- extract_key(rivdata)
   percept_keys <- as.numeric(unlist(rivdata[["log"]][[4]][[1]]))
   key_data     <- list()
-  for(t in 1:length(exp)){
-    trial      <- exp[t,]
+  for(trl in 1:length(exp)){
+    trial      <- exp[trl,]
     trial_key  <- extract_trialkey(exp_key,trial)
     if(dim(trial_key)[1] > 1){
       trial_key  <- remove_irrelevant_keyevents(trial_key,percept_keys)
       trial_key  <- clean_keyevents(trial_key,2)
       d <- preprocessing_trial(trial_key,as.numeric(exp[1,1]),percept_keys)
       d[[length(d)+1]] <- create_transitionkey(trial_key,as.numeric(exp[1,1]))
-      key_data[[t]]    <- d
+      key_data[[trl]]    <- d
     }
     else{
-      key_data[[t]]    <- create_nan_trialdata(percept_keys)
+      key_data[[trl]]    <- create_nan_trialdata(percept_keys)
     }
   }
   return(key_data)
