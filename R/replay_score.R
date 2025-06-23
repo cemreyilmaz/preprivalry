@@ -27,7 +27,7 @@ replay_score <- function(data){
       break
     }
   }
-  message(paste("shifted by",shift,"rows"))
+  # message(paste("shifted by",shift,"rows"))
   return(score)
 }
 
