@@ -25,7 +25,7 @@ eventbased_replay <- function(data, expType="None"){
   # extract key events
   exp_key <- extract_key(data)
   # extract percept keys
-  percept_keys <- as.numeric(unlist(data[["log"]][[5]][[1]]))
+  percept_keys <- as.numeric(unlist(data[["log"]][[4]][[1]]))
   # 75% transparency is considered as full stimulus, others transition
   scores <- c()
   labs_data <- c()
